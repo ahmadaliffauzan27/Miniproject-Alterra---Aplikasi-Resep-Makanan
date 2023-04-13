@@ -15,7 +15,7 @@ class CustomBottomNavBar extends StatelessWidget {
       decoration:
           const BoxDecoration(border: Border(top: BorderSide(width: 0.1))),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           GestureDetector(
             onTap: () {
@@ -43,10 +43,28 @@ class CustomBottomNavBar extends StatelessWidget {
             child: Container(
               width: 32,
               height: 32,
+              margin: EdgeInsets.symmetric(horizontal: 83),
               decoration: BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage(
-                        'assets/ic_profile${(selectedIndex == 1) ? '.png' : '_normal.png'}',
+                        'assets/ic_order${(selectedIndex == 1) ? '.png' : '_normal.png'}',
+                      ),
+                      fit: BoxFit.contain)),
+            ),
+          ),
+          GestureDetector(
+            onTap: () {
+              if (onTap != null) {
+                onTap(2);
+              }
+            },
+            child: Container(
+              width: 32,
+              height: 32,
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage(
+                        'assets/ic_profile${(selectedIndex == 2) ? '.png' : '_normal.png'}',
                       ),
                       fit: BoxFit.contain)),
             ),

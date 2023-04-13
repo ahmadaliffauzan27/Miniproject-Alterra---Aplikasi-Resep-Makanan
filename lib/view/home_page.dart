@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:resep_makanan/view/custom_bottom_navbar.dart';
 import 'package:resep_makanan/view/profile_page.dart';
+import 'package:resep_makanan/view/recomendation_page.dart';
 import 'package:resep_makanan/view/resep_home.dart';
 
 class HomePage extends StatefulWidget {
@@ -28,6 +29,8 @@ class _HomePageState extends State<HomePage> {
           // Halaman dengan indeks 0
           ResepHome(),
           // Halaman dengan indeks 1
+          RekomendasiPage(),
+          // Halaman dengan indeks 2
           ProfilePage(),
         ],
       ),
