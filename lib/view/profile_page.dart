@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:resep_makanan/view/register_page.dart';
 import 'package:resep_makanan/view/style/theme.dart';
@@ -50,15 +52,19 @@ class _ProfilePageState extends State<ProfilePage> {
                       width: 110,
                       height: 110,
                       margin: EdgeInsets.only(bottom: 16),
-                      padding: EdgeInsets.all(10),
                       decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image: AssetImage('assets/photo_border.png'))),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: mainColor,
+                          width: 2,
                         ),
-                        child: Image.asset('assets/photo.png'),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(55),
+                        child: Image.asset(
+                          'assets/photo2.jpeg',
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                     Text(

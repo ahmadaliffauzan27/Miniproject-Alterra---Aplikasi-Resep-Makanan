@@ -8,21 +8,17 @@ import 'package:provider/provider.dart';
 import 'package:resep_makanan/model/resep_model.dart';
 import 'package:resep_makanan/view/home_page.dart';
 import 'package:resep_makanan/view/style/theme.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
 import '../view_model/db_manager.dart';
 
-class TambahResep extends StatefulWidget {
+class EditResep extends StatefulWidget {
   final Resep? resep;
-  const TambahResep({super.key, this.resep});
+  const EditResep({super.key, this.resep});
 
   @override
-  State<TambahResep> createState() => _TambahResepState();
+  State<EditResep> createState() => _EditResepState();
 }
 
-class _TambahResepState extends State<TambahResep> {
-  late SharedPreferences logindata;
-  int idRandom = 0;
+class _EditResepState extends State<EditResep> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController inggridientsController = TextEditingController();
   TextEditingController stepController = TextEditingController();
@@ -30,10 +26,6 @@ class _TambahResepState extends State<TambahResep> {
   bool _isUpdate = false;
   List<int> _imageBytes = [];
   File? _image;
-
-  void generateId() {
-    idRandom++;
-  }
 
   @override
   void dispose() {
@@ -43,34 +35,31 @@ class _TambahResepState extends State<TambahResep> {
     super.dispose();
   }
 
-  @override
-  void initState() {
-    super.initState();
-    generateId();
-  }
-
-  void _saveResep() {
+  void _editResep() {
     if (_formKey.currentState!.validate()) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Resep Berhasil Ditambahkan!'),
+          content: Text('Resep Berhasil Diedit!'),
           backgroundColor: Colors.green,
         ),
       );
-      final resepToAdd = Resep(
-        id: widget.resep?.id,
-        name: nameController.text,
-        ingredients: inggridientsController.text,
-        step: stepController.text,
-        picture: Uint8List.fromList(_imageBytes),
-      );
-      Provider.of<DbManager>(context, listen: false).addResep(resepToAdd);
+
+      final id = widget.resep?.id;
+      if (id != null) {
+        final resepToEdit = Resep(
+          id: id,
+          name: nameController.text,
+          ingredients: inggridientsController.text,
+          step: stepController.text,
+          picture: Uint8List.fromList(_imageBytes),
+        );
+        Provider.of<DbManager>(context, listen: false)
+            .updateResep(id, resepToEdit);
+      }
 
       nameController.clear();
       inggridientsController.clear();
       stepController.clear();
-
-      generateId();
 
       Navigator.push(
         context,
@@ -160,7 +149,7 @@ class _TambahResepState extends State<TambahResep> {
                         style: blackFontStyle1,
                       ),
                       Text(
-                        "Ayo tulis resep terbaikmu!",
+                        "Edit resep terbaikmu!",
                         style: greyFontStyle.copyWith(
                             fontWeight: FontWeight.w300, fontSize: 14),
                       ),
@@ -294,7 +283,7 @@ class _TambahResepState extends State<TambahResep> {
                       const EdgeInsets.symmetric(horizontal: defaultMargin),
                   child: ElevatedButton(
                     onPressed: () {
-                      _saveResep();
+                      _editResep();
                     },
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
@@ -303,7 +292,7 @@ class _TambahResepState extends State<TambahResep> {
                       backgroundColor: mainColor,
                     ),
                     child: Text(
-                      'Buat',
+                      'Edit',
                       style: GoogleFonts.poppins(
                           color: Colors.black, fontWeight: FontWeight.w500),
                     ),

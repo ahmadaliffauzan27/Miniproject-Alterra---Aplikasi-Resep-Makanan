@@ -36,8 +36,8 @@ class DbManager extends ChangeNotifier {
     notifyListeners();
   }
 
-  void deleteResep(int id, Resep resep) async {
-    await _dbHelper.deleteResep(id, resep);
+  void deleteResep(int id) async {
+    await _dbHelper.deleteResep(id);
     _getAllReseps();
     notifyListeners();
   }

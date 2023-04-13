@@ -20,14 +20,15 @@ class DatabaseHelper {
   final String _tableName = 'reseps';
 
   Future<Database> _initializeDb() async {
-    var db = openDatabase(join(await getDatabasesPath(), 'resep_db.db'),
+    var db = openDatabase(join(await getDatabasesPath(), 'reseps_db.db'),
         onCreate: (db, version) async {
       await db.execute(
         '''CREATE TABLE $_tableName(
         id INTEGER PRIMARY KEY, 
         name TEXT, 
         ingredients TEXT,
-        step TEXT)''',
+        step TEXT,
+        picture BLOB)''',
       );
     }, version: 1);
     return db;
@@ -64,7 +65,7 @@ class DatabaseHelper {
     );
   }
 
-  Future<void> deleteResep(int id, Resep resep) async {
+  Future<void> deleteResep(int id) async {
     final db = await database;
     await db.delete(
       _tableName,
