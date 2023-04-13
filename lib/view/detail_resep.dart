@@ -42,22 +42,39 @@ class DetailResep extends StatelessWidget {
                     padding: EdgeInsets.symmetric(horizontal: defaultMargin),
                     child: Align(
                       alignment: Alignment.centerLeft,
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => HomePage()));
-                        },
-                        child: Container(
-                          padding: EdgeInsets.all(3),
-                          width: 30,
-                          height: 30,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              color: Colors.black12),
-                          child: Image.asset('assets/back_arrow_white.png'),
-                        ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => HomePage()));
+                            },
+                            child: Container(
+                              padding: EdgeInsets.all(3),
+                              width: 30,
+                              height: 30,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  color: Colors.black12),
+                              child: Image.asset('assets/back_arrow_white.png'),
+                            ),
+                          ),
+                          Container(
+                            padding: EdgeInsets.all(3),
+                            width: 30,
+                            height: 30,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                color: Colors.black12),
+                            child: const Icon(
+                              Icons.favorite_border,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),

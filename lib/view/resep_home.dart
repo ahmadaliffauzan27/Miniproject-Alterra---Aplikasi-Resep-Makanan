@@ -28,9 +28,19 @@ class _ResepHomeState extends State<ResepHome> {
             children: [
               Container(
                 padding: EdgeInsets.symmetric(horizontal: defaultMargin),
-                color: Colors.white,
                 height: 100,
                 width: double.infinity,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.1),
+                      spreadRadius: 1,
+                      blurRadius: 10,
+                      offset: Offset(0.1, 1),
+                    ),
+                  ],
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
