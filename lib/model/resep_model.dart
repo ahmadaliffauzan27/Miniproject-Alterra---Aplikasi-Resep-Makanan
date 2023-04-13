@@ -5,7 +5,7 @@ class Resep {
   late String step;
 
   Resep(
-      {required this.id,
+      {this.id,
       required this.name,
       required this.ingredients,
       required this.step});

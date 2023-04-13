@@ -26,7 +26,8 @@ class DatabaseHelper {
         '''CREATE TABLE $_tableName(
         id INTEGER PRIMARY KEY, 
         name TEXT, 
-        number TEXT)''',
+        ingredients TEXT,
+        step TEXT)''',
       );
     }, version: 1);
     return db;
@@ -43,7 +44,7 @@ class DatabaseHelper {
     return results.map((e) => Resep.fromMap(e)).toList();
   }
 
-  Future<Resep> getResepById(String id) async {
+  Future<Resep> getResepById(int id) async {
     final Database db = await database;
     List<Map<String, dynamic>> results = await db.query(
       _tableName,
@@ -63,7 +64,7 @@ class DatabaseHelper {
     );
   }
 
-  Future<void> deleteContact(int id, Resep resep) async {
+  Future<void> deleteResep(int id, Resep resep) async {
     final db = await database;
     await db.delete(
       _tableName,

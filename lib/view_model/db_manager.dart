@@ -7,7 +7,7 @@ class DbManager extends ChangeNotifier {
   List<Resep> _reseps = [];
   late DatabaseHelper _dbHelper;
 
-  List<Resep> get contacts => _reseps;
+  List<Resep> get reseps => _reseps;
 
   DbManager() {
     _dbHelper = DatabaseHelper();
@@ -20,24 +20,24 @@ class DbManager extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> addContact(Resep resep) async {
+  Future<void> addResep(Resep resep) async {
     await _dbHelper.insertResep(resep);
     _getAllReseps();
     notifyListeners();
   }
 
-  Future<Resep> getContactById(String id) async {
+  Future<Resep> getResepById(int id) async {
     return await _dbHelper.getResepById(id);
   }
 
-  void updateContact(int id, Resep resep) async {
+  void updateResep(int id, Resep resep) async {
     await _dbHelper.updateResep(id, resep);
     _getAllReseps();
     notifyListeners();
   }
 
-  void deleteContact(int id, Resep resep) async {
-    await _dbHelper.deleteContact(id, resep);
+  void deleteResep(int id, Resep resep) async {
+    await _dbHelper.deleteResep(id, resep);
     _getAllReseps();
     notifyListeners();
   }
