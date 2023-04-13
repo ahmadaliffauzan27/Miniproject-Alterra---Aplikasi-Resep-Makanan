@@ -3,6 +3,8 @@
 
 // import 'package:flutter/material.dart';
 // import 'package:provider/provider.dart';
+// import 'package:resep_makanan/view/detail_resep.dart';
+// import 'package:resep_makanan/view/edit_resep.dart';
 // import 'package:resep_makanan/view/style/theme.dart';
 // import 'package:resep_makanan/view/tambah_resep.dart';
 
@@ -26,9 +28,19 @@
 //             children: [
 //               Container(
 //                 padding: EdgeInsets.symmetric(horizontal: defaultMargin),
-//                 color: Colors.white,
 //                 height: 100,
 //                 width: double.infinity,
+//                 decoration: BoxDecoration(
+//                   color: Colors.white,
+//                   boxShadow: [
+//                     BoxShadow(
+//                       color: Colors.grey.withOpacity(0.1),
+//                       spreadRadius: 1,
+//                       blurRadius: 10,
+//                       offset: Offset(0.1, 1),
+//                     ),
+//                   ],
+//                 ),
 //                 child: Row(
 //                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
 //                   children: [
@@ -47,9 +59,18 @@
 //                         ),
 //                       ],
 //                     ),
-//                     SizedBox(
+//                     Container(
 //                       height: 50,
-//                       child: Image.asset('assets/photo.png'),
+//                       decoration: BoxDecoration(
+//                         borderRadius: BorderRadius.circular(10),
+//                       ),
+//                       child: ClipRRect(
+//                         borderRadius: BorderRadius.circular(10),
+//                         child: Image.asset(
+//                           'assets/photo2.jpeg',
+//                           fit: BoxFit.cover,
+//                         ),
+//                       ),
 //                     ),
 //                   ],
 //                 ),
@@ -59,133 +80,215 @@
 //                   final reseptModel = manager.reseps;
 
 //                   if (manager.reseps.isNotEmpty) {
-//                     return ListView.builder(
-//                         scrollDirection: Axis.vertical,
-//                         shrinkWrap: true,
-//                         itemCount: reseptModel.length,
-//                         // itemCount: manager.contacts.length,
-//                         itemBuilder: (BuildContext context, int index) {
-//                           final resepFinal = manager.reseps[index];
-//                           final color = mainColor;
-//                           // final item = manager.contacts;
-//                           return ListTile(
-//                             title: Text(resepFinal.name),
-//                             subtitle: Text(resepFinal.ingredients),
-//                             trailing: Row(
-//                               mainAxisSize: MainAxisSize.min,
-//                               children: [
-//                                 IconButton(
-//                                     icon: const Icon(Icons.edit),
-//                                     color: mainColor,
-//                                     onPressed: () async {
-//                                       showDialog(
-//                                         context: context,
-//                                         builder: (BuildContext context) {
-//                                           return AlertDialog(
-//                                             shape: RoundedRectangleBorder(
-//                                                 borderRadius:
-//                                                     BorderRadius.circular(20),
-//                                                 side: BorderSide(
-//                                                     color: mainColor)),
-//                                             title: const Text('Konfirmasi'),
-//                                             content: const Text(
-//                                                 'Apakah Anda ingin mengedit kontak ini?'),
-//                                             actions: [
-//                                               ElevatedButton(
-//                                                 style: ElevatedButton.styleFrom(
-//                                                     primary: mainColor),
-//                                                 child: const Text('Tidak'),
-//                                                 onPressed: () {
-//                                                   Navigator.pop(context);
-//                                                 },
-//                                               ),
-//                                               ElevatedButton(
-//                                                 style: ElevatedButton.styleFrom(
-//                                                     primary: mainColor),
-//                                                 child: const Text('Ya'),
-//                                                 onPressed: () {
-//                                                   // Navigator.pop(context);
-//                                                   // _showEditDialog(contact);
-//                                                 },
-//                                               ),
-//                                             ],
-//                                           );
-//                                         },
-//                                       );
-//                                     }),
-//                                 IconButton(
-//                                     icon: const Icon(Icons.delete),
-//                                     color: mainColor,
-//                                     onPressed: () {
-//                                       showDialog(
-//                                         context: context,
-//                                         builder: (BuildContext context) {
-//                                           return AlertDialog(
-//                                             shape: RoundedRectangleBorder(
-//                                                 borderRadius:
-//                                                     BorderRadius.circular(20),
-//                                                 side: BorderSide(
-//                                                     color: mainColor)),
-//                                             title: const Text('Konfirmasi'),
-//                                             content: const Text(
-//                                                 'Apakah Anda yakin ingin menghapus kontak ini?'),
-//                                             actions: [
-//                                               ElevatedButton(
-//                                                 style: ElevatedButton.styleFrom(
-//                                                     primary: mainColor),
-//                                                 child: const Text('Tidak'),
-//                                                 onPressed: () {
-//                                                   Navigator.pop(context);
-//                                                 },
-//                                               ),
-//                                               ElevatedButton(
-//                                                 style: ElevatedButton.styleFrom(
-//                                                     primary: mainColor),
-//                                                 child: const Text('Ya'),
-//                                                 onPressed: () {
-//                                                   final resepToDelete = Resep(
-//                                                       id: resepFinal.id,
-//                                                       name: resepFinal.name,
-//                                                       ingredients: resepFinal
-//                                                           .ingredients,
-//                                                       step: '');
-//                                                   Provider.of<DbManager>(
-//                                                           context,
-//                                                           listen: false)
-//                                                       .deleteResep(
-//                                                           resepFinal.id!,
-//                                                           resepToDelete);
-
-//                                                   ScaffoldMessenger.of(context)
-//                                                       .showSnackBar(
-//                                                     const SnackBar(
-//                                                       content: Text(
-//                                                           'Kontak Berhasil Dihapus!'),
-//                                                       backgroundColor:
-//                                                           Colors.green,
+//                     return Padding(
+//                       padding: const EdgeInsets.all(16.0),
+//                       child: GridView.builder(
+//                           gridDelegate:
+//                               const SliverGridDelegateWithFixedCrossAxisCount(
+//                             crossAxisCount: 2, // Jumlah kolom dalam grid
+//                             crossAxisSpacing: 8, // Jarak antar kolom
+//                             mainAxisSpacing: 8, // Jarak antar baris
+//                             childAspectRatio:
+//                                 1, // Rasio lebar terhadap tinggi tiap item dalam grid
+//                           ),
+//                           scrollDirection: Axis.vertical,
+//                           shrinkWrap: true,
+//                           itemCount: reseptModel.length,
+//                           itemBuilder: (BuildContext context, int index) {
+//                             final resepFinal = manager.reseps[index];
+//                             final color = mainColor;
+//                             return GestureDetector(
+//                               onTap: () {
+//                                 Navigator.push(
+//                                   context,
+//                                   MaterialPageRoute(
+//                                     builder: (context) =>
+//                                         DetailResep(resep: resepFinal),
+//                                   ),
+//                                 );
+//                               },
+//                               child: Card(
+//                                 child: Stack(
+//                                   children: [
+//                                     ListTile(
+//                                       title: Image.memory(
+//                                         resepFinal.picture,
+//                                         height: 120,
+//                                         fit: BoxFit.cover,
+//                                       ),
+//                                       subtitle: Padding(
+//                                         padding: const EdgeInsets.all(8.0),
+//                                         child: Text(resepFinal.name),
+//                                       ),
+//                                     ),
+//                                     Positioned(
+//                                       top: 0,
+//                                       right: 10,
+//                                       child: Container(
+//                                         width: 30,
+//                                         height: 30,
+//                                         decoration: BoxDecoration(
+//                                           shape: BoxShape.circle,
+//                                           color: mainColor,
+//                                         ),
+//                                         child: IconButton(
+//                                           onPressed: () async {
+//                                             showDialog(
+//                                               context: context,
+//                                               builder: (BuildContext context) {
+//                                                 return AlertDialog(
+//                                                   shape: RoundedRectangleBorder(
+//                                                       borderRadius:
+//                                                           BorderRadius.circular(
+//                                                               20),
+//                                                       side: BorderSide(
+//                                                           color: mainColor)),
+//                                                   title:
+//                                                       const Text('Konfirmasi'),
+//                                                   content: const Text(
+//                                                       'Bunda yakin ingin mengedit resep ini?'),
+//                                                   actions: [
+//                                                     ElevatedButton(
+//                                                       style: ElevatedButton
+//                                                           .styleFrom(
+//                                                               primary:
+//                                                                   mainColor),
+//                                                       child:
+//                                                           const Text('Tidak'),
+//                                                       onPressed: () {
+//                                                         Navigator.pop(context);
+//                                                       },
 //                                                     ),
-//                                                   );
-//                                                   Navigator.pop(context);
-//                                                   // log(index.toString());
-//                                                 },
-//                                               ),
-//                                             ],
-//                                           );
-//                                         },
-//                                       );
-//                                     })
-//                               ],
-//                             ),
-//                           );
-//                         });
+//                                                     ElevatedButton(
+//                                                       style: ElevatedButton
+//                                                           .styleFrom(
+//                                                               primary:
+//                                                                   mainColor),
+//                                                       child: const Text('Ya'),
+//                                                       onPressed: () {
+//                                                         Navigator.push(
+//                                                             context,
+//                                                             MaterialPageRoute(
+//                                                                 builder:
+//                                                                     (context) =>
+//                                                                         EditResep()));
+//                                                       },
+//                                                     ),
+//                                                   ],
+//                                                 );
+//                                               },
+//                                             );
+//                                           },
+//                                           icon: const Icon(Icons.edit),
+//                                           iconSize:
+//                                               15, // sesuaikan ukuran ikon dengan ukuran container
+//                                         ),
+//                                       ),
+//                                     ),
+//                                     Positioned(
+//                                       top: 32,
+//                                       right: 10,
+//                                       child: Container(
+//                                         width: 30,
+//                                         height: 30,
+//                                         decoration: BoxDecoration(
+//                                           shape: BoxShape.circle,
+//                                           color: mainColor,
+//                                         ),
+//                                         child: IconButton(
+//                                           onPressed: () {
+//                                             showDialog(
+//                                               context: context,
+//                                               builder: (BuildContext context) {
+//                                                 return AlertDialog(
+//                                                   shape: RoundedRectangleBorder(
+//                                                       borderRadius:
+//                                                           BorderRadius.circular(
+//                                                               20),
+//                                                       side: BorderSide(
+//                                                           color: mainColor)),
+//                                                   title:
+//                                                       const Text('Konfirmasi'),
+//                                                   content: const Text(
+//                                                       'Bunda yakin ingin menghapus resep ini?'),
+//                                                   actions: [
+//                                                     ElevatedButton(
+//                                                       style: ElevatedButton
+//                                                           .styleFrom(
+//                                                               primary:
+//                                                                   mainColor),
+//                                                       child:
+//                                                           const Text('Tidak'),
+//                                                       onPressed: () {
+//                                                         Navigator.pop(context);
+//                                                       },
+//                                                     ),
+//                                                     ElevatedButton(
+//                                                       style: ElevatedButton
+//                                                           .styleFrom(
+//                                                               primary:
+//                                                                   mainColor),
+//                                                       child: const Text('Ya'),
+//                                                       onPressed: () {
+//                                                         final resepToDelete = Resep(
+//                                                             id: resepFinal.id,
+//                                                             name:
+//                                                                 resepFinal.name,
+//                                                             ingredients:
+//                                                                 resepFinal
+//                                                                     .ingredients,
+//                                                             step:
+//                                                                 resepFinal.step,
+//                                                             picture: resepFinal
+//                                                                 .picture);
+//                                                         Provider.of<DbManager>(
+//                                                                 context,
+//                                                                 listen: false)
+//                                                             .deleteResep(
+//                                                           resepFinal.id!,
+//                                                         );
+
+//                                                         ScaffoldMessenger.of(
+//                                                                 context)
+//                                                             .showSnackBar(
+//                                                           const SnackBar(
+//                                                             content: Text(
+//                                                                 'Resep Berhasil Dihapus!'),
+//                                                             backgroundColor:
+//                                                                 Colors.green,
+//                                                           ),
+//                                                         );
+//                                                         Navigator.pop(context);
+//                                                         // log(index.toString());
+//                                                       },
+//                                                     ),
+//                                                   ],
+//                                                 );
+//                                               },
+//                                             );
+//                                           },
+//                                           icon: const Icon(Icons.delete),
+//                                           iconSize: 15,
+//                                         ),
+//                                       ),
+//                                     ),
+//                                   ],
+//                                 ),
+//                               ),
+//                             );
+//                           }),
+//                     );
 //                   } else {
 //                     return Column(
-//                       children: const [
-//                         SizedBox(
+//                       children: [
+//                         const SizedBox(
 //                           height: 300,
 //                         ),
 //                         Center(
-//                             child: Text('Belum ada resep yang kamu tulis :(')),
+//                             child: Text(
+//                           'Belum ada resep yang bunda tulis :(',
+//                           style: blackFontStyle3,
+//                         )),
 //                       ],
 //                     );
 //                   }

@@ -84,17 +84,44 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Daftar',
-          style: titleFont,
-        ),
-        backgroundColor: mainColor,
-      ),
       body: ListView(
         children: [
           Column(
             children: [
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: defaultMargin),
+                height: 100,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.1),
+                      spreadRadius: 1,
+                      blurRadius: 10,
+                      offset: Offset(0.1, 1),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'ResepKu',
+                      style: blackFontStyle1,
+                    ),
+                    Text(
+                      "Daftar dan mulai menulis resep!",
+                      style: greyFontStyle.copyWith(
+                          fontWeight: FontWeight.w300, fontSize: 14),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 60,
+              ),
               GestureDetector(
                 onTap: () async {
                   getFile();
@@ -122,6 +149,9 @@ class _RegisterPageState extends State<RegisterPage> {
                                   fit: BoxFit.cover)),
                         ),
                 ),
+              ),
+              const SizedBox(
+                height: 30,
               ),
               Container(
                 width: double.infinity,

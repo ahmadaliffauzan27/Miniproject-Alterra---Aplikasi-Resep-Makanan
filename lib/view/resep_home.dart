@@ -1,3 +1,7 @@
+import 'dart:io';
+import 'dart:typed_data';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 
@@ -19,6 +23,209 @@ class ResepHome extends StatefulWidget {
 }
 
 class _ResepHomeState extends State<ResepHome> {
+  String name = '';
+  String ingredients = '';
+  String step = '';
+  File? picture;
+  List<int> _imageBytes = [];
+  File? _image;
+
+  void getFile() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles();
+
+    if (result != null) {
+      File file = File(result.files.single.path!);
+      print('File name: $file');
+
+      setState(() {
+        _image = file;
+        _imageBytes = file.readAsBytesSync();
+      });
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('Please select file'),
+      ));
+    }
+    setState(() {});
+  }
+
+  void _showEditDialog(Resep resep) async {
+    TextEditingController nameController =
+        TextEditingController(text: resep.name);
+    TextEditingController ingredientsController =
+        TextEditingController(text: resep.ingredients);
+    TextEditingController stepsController =
+        TextEditingController(text: resep.step);
+
+    await showDialog(
+      context: context,
+      builder: (context) => SingleChildScrollView(
+        child: AlertDialog(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+              side: BorderSide(color: mainColor)),
+          title: Text('Edit Resep'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              GestureDetector(
+                onTap: () async {
+                  getFile();
+                  setState(() {});
+                },
+                child: Container(
+                  width: 110,
+                  height: 110,
+                  margin: const EdgeInsets.only(top: 26),
+                  padding: const EdgeInsets.all(10),
+                  decoration: const BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage('assets/photo_border.png'))),
+                  child: (_image != null)
+                      ? Container(
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              image: DecorationImage(
+                                  image: FileImage(_image!),
+                                  fit: BoxFit.cover)),
+                        )
+                      : Container(
+                          decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              image: DecorationImage(
+                                  image: AssetImage('assets/photo.png'),
+                                  fit: BoxFit.cover)),
+                        ),
+                ),
+              ),
+              Container(
+                width: double.infinity,
+                margin: const EdgeInsets.fromLTRB(
+                    defaultMargin, 16, defaultMargin, 6),
+                child: Text(
+                  "Nama Resep",
+                  style: blackFontStyle2,
+                ),
+              ),
+              Container(
+                width: double.infinity,
+                margin: const EdgeInsets.symmetric(horizontal: defaultMargin),
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: Colors.black)),
+                child: TextFormField(
+                  onChanged: (value) {
+                    name = value;
+                  },
+                  controller: nameController,
+                  decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintStyle: greyFontStyle,
+                      hintText: 'Masukkan nama resep'),
+                ),
+              ),
+              Container(
+                width: double.infinity,
+                margin: const EdgeInsets.fromLTRB(
+                    defaultMargin, 16, defaultMargin, 6),
+                child: Text(
+                  "Bahan-bahan",
+                  style: blackFontStyle2,
+                ),
+              ),
+              Container(
+                width: double.infinity,
+                margin: const EdgeInsets.symmetric(horizontal: defaultMargin),
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: Colors.black)),
+                child: TextFormField(
+                  onChanged: (value) {
+                    ingredients = value;
+                  },
+                  controller: ingredientsController,
+                  decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintStyle: greyFontStyle,
+                      hintText: 'Masukkan bahan-bahan'),
+                ),
+              ),
+              Container(
+                width: double.infinity,
+                margin: const EdgeInsets.fromLTRB(
+                    defaultMargin, 16, defaultMargin, 6),
+                child: Text(
+                  "Cara pembuatan",
+                  style: blackFontStyle2,
+                ),
+              ),
+              Container(
+                constraints: const BoxConstraints(
+                    maxWidth:
+                        500), // membuat lebar maksimal container menjadi 500
+                margin: const EdgeInsets.symmetric(horizontal: defaultMargin),
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: Colors.black)),
+                child: TextField(
+                  onChanged: (value) {
+                    step = value;
+                  },
+                  maxLines: null,
+                  keyboardType: TextInputType.multiline,
+                  decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintStyle: greyFontStyle,
+                      hintText: 'Masukkan tahapan cara pembuatan'),
+                  controller: stepsController,
+                  style: const TextStyle(fontSize: 16.0),
+                ),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text(
+                'Batal',
+                style: TextStyle(color: mainColor),
+              ),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(primary: mainColor),
+              onPressed: () {
+                final updatedResep = Resep(
+                  id: resep.id,
+                  name: name,
+                  ingredients: ingredients,
+                  step: step,
+                  picture: Uint8List.fromList(_imageBytes),
+                );
+
+                Provider.of<DbManager>(context, listen: false)
+                    .updateResep(resep.id!, updatedResep);
+
+                Navigator.pop(context);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Resep Berhasil Diedit'),
+                    backgroundColor: Colors.green,
+                  ),
+                );
+              },
+              child: Text('Edit'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -112,7 +319,7 @@ class _ResepHomeState extends State<ResepHome> {
                                   children: [
                                     ListTile(
                                       title: Image.memory(
-                                        resepFinal.picture,
+                                        resepFinal.picture!,
                                         height: 120,
                                         fit: BoxFit.cover,
                                       ),
@@ -133,51 +340,7 @@ class _ResepHomeState extends State<ResepHome> {
                                         ),
                                         child: IconButton(
                                           onPressed: () async {
-                                            showDialog(
-                                              context: context,
-                                              builder: (BuildContext context) {
-                                                return AlertDialog(
-                                                  shape: RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              20),
-                                                      side: BorderSide(
-                                                          color: mainColor)),
-                                                  title:
-                                                      const Text('Konfirmasi'),
-                                                  content: const Text(
-                                                      'Bunda yakin ingin mengedit resep ini?'),
-                                                  actions: [
-                                                    ElevatedButton(
-                                                      style: ElevatedButton
-                                                          .styleFrom(
-                                                              primary:
-                                                                  mainColor),
-                                                      child:
-                                                          const Text('Tidak'),
-                                                      onPressed: () {
-                                                        Navigator.pop(context);
-                                                      },
-                                                    ),
-                                                    ElevatedButton(
-                                                      style: ElevatedButton
-                                                          .styleFrom(
-                                                              primary:
-                                                                  mainColor),
-                                                      child: const Text('Ya'),
-                                                      onPressed: () {
-                                                        Navigator.push(
-                                                            context,
-                                                            MaterialPageRoute(
-                                                                builder:
-                                                                    (context) =>
-                                                                        EditResep()));
-                                                      },
-                                                    ),
-                                                  ],
-                                                );
-                                              },
-                                            );
+                                            _showEditDialog(resepFinal);
                                           },
                                           icon: const Icon(Icons.edit),
                                           iconSize:

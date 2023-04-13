@@ -25,7 +25,7 @@ class DetailResep extends StatelessWidget {
               height: 300,
               width: double.infinity,
               child: Image.memory(
-                resep.picture,
+                resep.picture!,
                 fit: BoxFit.cover,
               ),
             ),

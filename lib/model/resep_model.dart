@@ -5,14 +5,14 @@ class Resep {
   late String name;
   late String ingredients;
   late String step;
-  late Uint8List picture;
+  late Uint8List? picture;
 
   Resep(
       {this.id,
       required this.name,
       required this.ingredients,
       required this.step,
-      required this.picture});
+      this.picture});
 
   Map<String, dynamic> toMap() {
     return {
