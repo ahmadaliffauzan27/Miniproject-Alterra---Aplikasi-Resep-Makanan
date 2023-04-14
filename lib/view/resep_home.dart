@@ -288,7 +288,7 @@ class _ResepHomeState extends State<ResepHome> {
 
                   if (manager.reseps.isNotEmpty) {
                     return Padding(
-                      padding: const EdgeInsets.all(16.0),
+                      padding: const EdgeInsets.all(20),
                       child: GridView.builder(
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
@@ -303,7 +303,6 @@ class _ResepHomeState extends State<ResepHome> {
                           itemCount: reseptModel.length,
                           itemBuilder: (BuildContext context, int index) {
                             final resepFinal = manager.reseps[index];
-                            final color = mainColor;
                             return GestureDetector(
                               onTap: () {
                                 Navigator.push(
@@ -320,17 +319,21 @@ class _ResepHomeState extends State<ResepHome> {
                                     ListTile(
                                       title: Image.memory(
                                         resepFinal.picture!,
-                                        height: 120,
+                                        height: 130,
                                         fit: BoxFit.cover,
                                       ),
                                       subtitle: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(resepFinal.name),
+                                        padding: const EdgeInsets.only(top: 8),
+                                        child: Text(
+                                          resepFinal.name,
+                                          style: blackFontStyle2.copyWith(
+                                              fontSize: 12),
+                                        ),
                                       ),
                                     ),
                                     Positioned(
-                                      top: 0,
-                                      right: 10,
+                                      top: 4,
+                                      right: 16,
                                       child: Container(
                                         width: 30,
                                         height: 30,
@@ -349,8 +352,8 @@ class _ResepHomeState extends State<ResepHome> {
                                       ),
                                     ),
                                     Positioned(
-                                      top: 32,
-                                      right: 10,
+                                      top: 36,
+                                      right: 16,
                                       child: Container(
                                         width: 30,
                                         height: 30,
