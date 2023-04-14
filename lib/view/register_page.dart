@@ -238,7 +238,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     logindata.setBool('daftar', false);
                     logindata.setString('username', username);
                     logindata.setString('email', email);
-                    saveImageToSharedPreferences(image!);
+                    // saveImageToSharedPreferences(image!);
                     Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(
