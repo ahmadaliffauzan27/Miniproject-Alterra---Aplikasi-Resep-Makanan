@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:resep_makanan/view/home_page.dart';
 import 'package:resep_makanan/view/register_page.dart';
+import 'package:resep_makanan/view/splash_screen.dart';
 import 'package:resep_makanan/view_model/db_manager.dart';
 
 void main() {
@@ -19,7 +20,8 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         routes: {
-          '/': (context) => const RegisterPage(),
+          '/': (context) => SplashScreen(),
+          '/register': (context) => const RegisterPage(),
           '/home': (context) => const HomePage(),
         },
       ),
