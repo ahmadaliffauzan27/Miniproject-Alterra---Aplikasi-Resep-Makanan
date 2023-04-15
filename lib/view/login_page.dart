@@ -5,60 +5,29 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:resep_makanan/view/home_page.dart';
-import 'package:resep_makanan/view/login_page.dart';
+import 'package:resep_makanan/view/register_page.dart';
 import 'package:resep_makanan/view/style/theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:image_picker/image_picker.dart';
 
-class RegisterPage extends StatefulWidget {
-  const RegisterPage({super.key});
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
 
   @override
-  State<RegisterPage> createState() => _RegisterPageState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
-class _RegisterPageState extends State<RegisterPage> {
+class _LoginPageState extends State<LoginPage> {
   late SharedPreferences logindata;
   late bool newUser;
-  File? image;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  TextEditingController nameController = TextEditingController();
-
-  void getFile() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles();
-
-    if (result != null) {
-      File file = File(result.files.single.path!);
-      print('File name: $file');
-
-      setState(() {
-        image = file;
-      });
-    } else {
-      // User canceled the picker
-      // You can show snackbar or fluttertoast
-      // here like this to show warning to user
-      // ignore: use_build_context_synchronously
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text('Please select file'),
-      ));
-    }
-  }
-
-  void saveImageToSharedPreferences(File image) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<int> imageBytes = await image.readAsBytes();
-    String base64Image = base64Encode(imageBytes);
-    prefs.setString('image', base64Image);
-  }
 
   @override
   void dispose() {
     super.dispose();
     emailController.dispose();
     passwordController.dispose();
-    nameController.dispose();
   }
 
   @override
@@ -121,62 +90,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
               ),
               const SizedBox(
-                height: 60,
-              ),
-              GestureDetector(
-                onTap: () async {
-                  getFile();
-                },
-                child: Container(
-                  width: 110,
-                  height: 110,
-                  margin: const EdgeInsets.only(top: 26),
-                  padding: const EdgeInsets.all(10),
-                  decoration: const BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage('assets/photo_border.png'))),
-                  child: (image != null)
-                      ? Container(
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              image: DecorationImage(
-                                  image: FileImage(image!), fit: BoxFit.cover)),
-                        )
-                      : Container(
-                          decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              image: DecorationImage(
-                                  image: AssetImage('assets/photo.png'),
-                                  fit: BoxFit.cover)),
-                        ),
-                ),
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              Container(
-                width: double.infinity,
-                margin: const EdgeInsets.fromLTRB(
-                    defaultMargin, 16, defaultMargin, 6),
-                child: Text(
-                  "Nama Lengkap",
-                  style: blackFontStyle2,
-                ),
-              ),
-              Container(
-                width: double.infinity,
-                margin: const EdgeInsets.symmetric(horizontal: defaultMargin),
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: Colors.black)),
-                child: TextField(
-                  controller: nameController,
-                  decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintStyle: greyFontStyle,
-                      hintText: 'Masukkan nama lengkap'),
-                ),
+                height: 10,
               ),
               Container(
                 width: double.infinity,
@@ -234,10 +148,8 @@ class _RegisterPageState extends State<RegisterPage> {
                 padding: const EdgeInsets.symmetric(horizontal: defaultMargin),
                 child: ElevatedButton(
                   onPressed: () {
-                    String username = nameController.text;
                     String email = emailController.text;
                     logindata.setBool('daftar', false);
-                    logindata.setString('username', username);
                     logindata.setString('email', email);
                     // saveImageToSharedPreferences(image!);
                     Navigator.pushAndRemoveUntil(
@@ -254,7 +166,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     backgroundColor: mainColor,
                   ),
                   child: Text(
-                    'Daftar',
+                    'Masuk',
                     style: GoogleFonts.poppins(
                         color: Colors.black, fontWeight: FontWeight.w500),
                   ),
@@ -268,7 +180,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Sudah mempunyai akun?",
+                      "Belum mempunyai akun?",
                       style: blackFontStyle2,
                     ),
                     GestureDetector(
@@ -276,10 +188,10 @@ class _RegisterPageState extends State<RegisterPage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => LoginPage()));
+                                builder: (context) => RegisterPage()));
                       },
                       child: Text(
-                        " Masuk",
+                        " Daftar",
                         style: blackFontStyle2.copyWith(color: Colors.blue),
                       ),
                     )

@@ -67,7 +67,10 @@ class _ProfilePageState extends State<ProfilePage> {
                           image: DecorationImage(
                               image: AssetImage('assets/photo_border.png'))),
                       child: ClipOval(
-                        child: Image.asset('assets/photo2.jpeg'),
+                        child: Image.asset(
+                          'assets/photo3.jpg',
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                     const SizedBox(

@@ -249,6 +249,8 @@ class _TambahResepState extends State<TambahResep> {
                       borderRadius: BorderRadius.circular(8),
                       border: Border.all(color: Colors.black)),
                   child: TextFormField(
+                    maxLines: null,
+                    keyboardType: TextInputType.multiline,
                     validator: validateIngredients,
                     controller: inggridientsController,
                     decoration: InputDecoration(

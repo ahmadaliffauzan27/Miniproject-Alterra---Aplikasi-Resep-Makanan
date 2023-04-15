@@ -64,7 +64,10 @@ class _ResepHomeState extends State<ResepHome> {
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
               side: BorderSide(color: mainColor)),
-          title: Text('Edit Resep'),
+          title: Text(
+            'Edit Resep',
+            style: blackFontStyle1,
+          ),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -197,7 +200,7 @@ class _ResepHomeState extends State<ResepHome> {
               ),
             ),
             ElevatedButton(
-              style: ElevatedButton.styleFrom(primary: mainColor),
+              style: ElevatedButton.styleFrom(backgroundColor: mainColor),
               onPressed: () {
                 final updatedResep = Resep(
                   id: resep.id,
@@ -218,7 +221,7 @@ class _ResepHomeState extends State<ResepHome> {
                   ),
                 );
               },
-              child: Text('Edit'),
+              child: const Text('Edit'),
             ),
           ],
         ),
@@ -234,7 +237,7 @@ class _ResepHomeState extends State<ResepHome> {
           Column(
             children: [
               Container(
-                padding: EdgeInsets.symmetric(horizontal: defaultMargin),
+                padding: const EdgeInsets.symmetric(horizontal: defaultMargin),
                 height: 100,
                 width: double.infinity,
                 decoration: BoxDecoration(
@@ -244,7 +247,7 @@ class _ResepHomeState extends State<ResepHome> {
                       color: Colors.grey.withOpacity(0.1),
                       spreadRadius: 1,
                       blurRadius: 10,
-                      offset: Offset(0.1, 1),
+                      offset: const Offset(0.1, 1),
                     ),
                   ],
                 ),
@@ -268,13 +271,14 @@ class _ResepHomeState extends State<ResepHome> {
                     ),
                     Container(
                       height: 50,
+                      width: 50,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(10),
                         child: Image.asset(
-                          'assets/photo2.jpeg',
+                          'assets/photo3.jpg',
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -283,20 +287,19 @@ class _ResepHomeState extends State<ResepHome> {
                 ),
               ),
               Center(
-                child: Consumer<DbManager>(builder: (context, manager, child) {
-                  final reseptModel = manager.reseps;
-
-                  if (manager.reseps.isNotEmpty) {
-                    return Padding(
-                      padding: const EdgeInsets.all(20),
-                      child: GridView.builder(
+                child: Consumer<DbManager>(
+                  builder: (context, manager, child) {
+                    final reseptModel = manager.reseps;
+                    if (manager.reseps.isNotEmpty) {
+                      return Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: GridView.builder(
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2, // Jumlah kolom dalam grid
-                            crossAxisSpacing: 8, // Jarak antar kolom
-                            mainAxisSpacing: 8, // Jarak antar baris
-                            childAspectRatio:
-                                1, // Rasio lebar terhadap tinggi tiap item dalam grid
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 8,
+                            mainAxisSpacing: 8,
+                            childAspectRatio: 1,
                           ),
                           scrollDirection: Axis.vertical,
                           shrinkWrap: true,
@@ -314,152 +317,167 @@ class _ResepHomeState extends State<ResepHome> {
                                 );
                               },
                               child: Card(
-                                child: Stack(
-                                  children: [
-                                    ListTile(
-                                      title: Image.memory(
-                                        resepFinal.picture!,
-                                        height: 130,
-                                        fit: BoxFit.cover,
+                                child: Stack(children: [
+                                  // Gambar dan Nama Resep
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Expanded(
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                const BorderRadius.only(
+                                              topLeft: Radius.circular(8.0),
+                                              topRight: Radius.circular(8.0),
+                                            ),
+                                            image: DecorationImage(
+                                              image: MemoryImage(
+                                                  resepFinal.picture!),
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                        ),
                                       ),
-                                      subtitle: Padding(
-                                        padding: const EdgeInsets.only(top: 8),
+                                      Container(
+                                        padding: const EdgeInsets.all(8.0),
+                                        color: Colors.white,
                                         child: Text(
                                           resepFinal.name,
                                           style: blackFontStyle2.copyWith(
                                               fontSize: 12),
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
                                         ),
                                       ),
-                                    ),
-                                    Positioned(
-                                      top: 4,
-                                      right: 16,
-                                      child: Container(
-                                        width: 30,
-                                        height: 30,
-                                        decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: mainColor,
-                                        ),
-                                        child: IconButton(
-                                          onPressed: () async {
-                                            _showEditDialog(resepFinal);
-                                          },
-                                          icon: const Icon(Icons.edit),
-                                          iconSize:
-                                              15, // sesuaikan ukuran ikon dengan ukuran container
-                                        ),
+                                    ],
+                                  ),
+                                  // Icon Edit
+                                  Positioned(
+                                    top: 4,
+                                    right: 4,
+                                    child: Container(
+                                      width: 30,
+                                      height: 30,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: mainColor,
+                                      ),
+                                      child: IconButton(
+                                        onPressed: () async {
+                                          _showEditDialog(resepFinal);
+                                        },
+                                        icon: const Icon(Icons.edit),
+                                        iconSize:
+                                            15, // sesuaikan ukuran ikon dengan ukuran container
                                       ),
                                     ),
-                                    Positioned(
-                                      top: 36,
-                                      right: 16,
-                                      child: Container(
-                                        width: 30,
-                                        height: 30,
-                                        decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: mainColor,
-                                        ),
-                                        child: IconButton(
-                                          onPressed: () {
-                                            showDialog(
-                                              context: context,
-                                              builder: (BuildContext context) {
-                                                return AlertDialog(
-                                                  shape: RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              20),
-                                                      side: BorderSide(
-                                                          color: mainColor)),
-                                                  title:
-                                                      const Text('Konfirmasi'),
-                                                  content: const Text(
-                                                      'Bunda yakin ingin menghapus resep ini?'),
-                                                  actions: [
-                                                    ElevatedButton(
-                                                      style: ElevatedButton
-                                                          .styleFrom(
-                                                              primary:
-                                                                  mainColor),
-                                                      child:
-                                                          const Text('Tidak'),
-                                                      onPressed: () {
-                                                        Navigator.pop(context);
-                                                      },
-                                                    ),
-                                                    ElevatedButton(
-                                                      style: ElevatedButton
-                                                          .styleFrom(
-                                                              primary:
-                                                                  mainColor),
-                                                      child: const Text('Ya'),
-                                                      onPressed: () {
-                                                        final resepToDelete = Resep(
-                                                            id: resepFinal.id,
-                                                            name:
-                                                                resepFinal.name,
-                                                            ingredients:
-                                                                resepFinal
-                                                                    .ingredients,
-                                                            step:
-                                                                resepFinal.step,
-                                                            picture: resepFinal
-                                                                .picture);
-                                                        Provider.of<DbManager>(
-                                                                context,
-                                                                listen: false)
-                                                            .deleteResep(
-                                                          resepFinal.id!,
-                                                        );
-
-                                                        ScaffoldMessenger.of(
-                                                                context)
-                                                            .showSnackBar(
-                                                          const SnackBar(
-                                                            content: Text(
-                                                                'Resep Berhasil Dihapus!'),
+                                  ),
+                                  Positioned(
+                                    top: 40,
+                                    right: 4,
+                                    child: Container(
+                                      width: 30,
+                                      height: 30,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: mainColor,
+                                      ),
+                                      child: IconButton(
+                                        onPressed: () {
+                                          showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return AlertDialog(
+                                                shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20),
+                                                    side: BorderSide(
+                                                        color: mainColor)),
+                                                title: const Text('Konfirmasi'),
+                                                content: const Text(
+                                                    'Bunda yakin ingin menghapus resep ini?'),
+                                                actions: [
+                                                  ElevatedButton(
+                                                    style: ElevatedButton
+                                                        .styleFrom(
                                                             backgroundColor:
-                                                                Colors.green,
-                                                          ),
-                                                        );
-                                                        Navigator.pop(context);
-                                                        // log(index.toString());
-                                                      },
-                                                    ),
-                                                  ],
-                                                );
-                                              },
-                                            );
-                                          },
-                                          icon: const Icon(Icons.delete),
-                                          iconSize: 15,
-                                        ),
+                                                                mainColor),
+                                                    child: const Text('Tidak'),
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                  ),
+                                                  ElevatedButton(
+                                                    style: ElevatedButton
+                                                        .styleFrom(
+                                                            backgroundColor:
+                                                                mainColor),
+                                                    child: const Text('Ya'),
+                                                    onPressed: () {
+                                                      final resepToDelete = Resep(
+                                                          id: resepFinal.id,
+                                                          name: resepFinal.name,
+                                                          ingredients:
+                                                              resepFinal
+                                                                  .ingredients,
+                                                          step: resepFinal.step,
+                                                          picture: resepFinal
+                                                              .picture);
+                                                      Provider.of<DbManager>(
+                                                              context,
+                                                              listen: false)
+                                                          .deleteResep(
+                                                        resepFinal.id!,
+                                                      );
+
+                                                      ScaffoldMessenger.of(
+                                                              context)
+                                                          .showSnackBar(
+                                                        const SnackBar(
+                                                          content: Text(
+                                                              'Resep Berhasil Dihapus!'),
+                                                          backgroundColor:
+                                                              Colors.green,
+                                                        ),
+                                                      );
+                                                      Navigator.pop(context);
+                                                      // log(index.toString());
+                                                    },
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          );
+                                        },
+                                        icon: const Icon(Icons.delete),
+                                        iconSize: 15,
                                       ),
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ]),
                               ),
                             );
-                          }),
-                    );
-                  } else {
-                    return Column(
-                      children: [
-                        const SizedBox(
-                          height: 300,
+                          },
                         ),
-                        Center(
+                      );
+                    } else {
+                      return Column(
+                        children: [
+                          const SizedBox(height: 300),
+                          Center(
                             child: Text(
-                          'Belum ada resep yang bunda tulis :(',
-                          style: blackFontStyle3,
-                        )),
-                      ],
-                    );
-                  }
-                }),
-              ),
+                              'Belum ada resep yang bunda tulis :(',
+                              style: blackFontStyle3,
+                            ),
+                          ),
+                        ],
+                      );
+                    }
+                  },
+                ),
+              )
             ],
           ),
         ],
@@ -476,7 +494,7 @@ class _ResepHomeState extends State<ResepHome> {
         },
         tooltip: 'Increment',
         child: const Icon(Icons.add),
-      ), //
+      ),
     );
   }
 }
