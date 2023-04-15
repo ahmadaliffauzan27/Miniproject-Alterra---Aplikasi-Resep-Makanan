@@ -231,21 +231,23 @@ class _EditResepState extends State<EditResep> {
                   ),
                 ),
                 Container(
-                  width: double.infinity,
+                  constraints: const BoxConstraints(
+                      maxWidth:
+                          500), // membuat lebar maksimal container menjadi 500
                   margin: const EdgeInsets.symmetric(horizontal: defaultMargin),
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
                       border: Border.all(color: Colors.black)),
-                  child: TextFormField(
+                  child: TextField(
                     maxLines: null,
                     keyboardType: TextInputType.multiline,
-                    validator: validateIngredients,
-                    controller: inggridientsController,
                     decoration: InputDecoration(
                         border: InputBorder.none,
                         hintStyle: greyFontStyle,
-                        hintText: 'Masukkan bahan-bahan'),
+                        hintText: 'Masukkan tahapan cara pembuatan'),
+                    controller: inggridientsController,
+                    style: const TextStyle(fontSize: 16.0),
                   ),
                 ),
                 Container(

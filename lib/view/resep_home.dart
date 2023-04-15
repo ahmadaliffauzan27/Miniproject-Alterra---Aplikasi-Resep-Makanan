@@ -138,7 +138,7 @@ class _ResepHomeState extends State<ResepHome> {
                 ),
               ),
               Container(
-                width: double.infinity,
+                constraints: const BoxConstraints(maxWidth: 500),
                 margin: const EdgeInsets.symmetric(horizontal: defaultMargin),
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 decoration: BoxDecoration(
@@ -148,6 +148,8 @@ class _ResepHomeState extends State<ResepHome> {
                   onChanged: (value) {
                     ingredients = value;
                   },
+                  maxLines: null,
+                  keyboardType: TextInputType.multiline,
                   controller: ingredientsController,
                   decoration: InputDecoration(
                       border: InputBorder.none,
