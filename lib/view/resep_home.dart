@@ -243,7 +243,7 @@ class _ResepHomeState extends State<ResepHome> {
             Column(
               children: [
                 Container(
-                  height: MediaQuery.of(context).size.height / 2.55,
+                  height: MediaQuery.of(context).size.height / 2.4,
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
                     color: mainColor,
