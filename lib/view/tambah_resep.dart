@@ -72,7 +72,7 @@ class _TambahResepState extends State<TambahResep> {
 
       generateId();
 
-      Navigator.push(
+      Navigator.pop(
         context,
         MaterialPageRoute(
           builder: (context) => const HomePage(),

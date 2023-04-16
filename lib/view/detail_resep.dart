@@ -46,7 +46,7 @@ class DetailResep extends StatelessWidget {
                       children: [
                         GestureDetector(
                           onTap: () {
-                            Navigator.push(
+                            Navigator.pop(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => HomePage()));
