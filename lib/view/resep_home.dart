@@ -52,188 +52,6 @@ class _ResepHomeState extends State<ResepHome> {
     setState(() {});
   }
 
-  void _showEditDialog(Resep resep) async {
-    TextEditingController nameController =
-        TextEditingController(text: resep.name);
-    TextEditingController ingredientsController =
-        TextEditingController(text: resep.ingredients);
-    TextEditingController stepsController =
-        TextEditingController(text: resep.step);
-
-    await showDialog(
-      context: context,
-      builder: (context) => SingleChildScrollView(
-        child: AlertDialog(
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-              side: BorderSide(color: mainColor)),
-          title: Text(
-            'Edit Resep',
-            style: blackFontStyle1,
-          ),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              GestureDetector(
-                onTap: () async {
-                  getFile();
-                  setState(() {});
-                },
-                child: Container(
-                  width: 110,
-                  height: 110,
-                  margin: const EdgeInsets.only(top: 26),
-                  padding: const EdgeInsets.all(10),
-                  decoration: const BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage('assets/photo_border.png'))),
-                  child: (_image != null)
-                      ? Container(
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              image: DecorationImage(
-                                  image: FileImage(_image!),
-                                  fit: BoxFit.cover)),
-                        )
-                      : Container(
-                          decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              image: DecorationImage(
-                                  image: AssetImage('assets/photo.png'),
-                                  fit: BoxFit.cover)),
-                        ),
-                ),
-              ),
-              Container(
-                width: double.infinity,
-                margin: const EdgeInsets.fromLTRB(
-                    defaultMargin, 16, defaultMargin, 6),
-                child: Text(
-                  "Nama Resep",
-                  style: blackFontStyle2,
-                ),
-              ),
-              Container(
-                width: double.infinity,
-                margin: const EdgeInsets.symmetric(horizontal: defaultMargin),
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: Colors.black)),
-                child: TextFormField(
-                  onChanged: (value) {
-                    name = value;
-                  },
-                  controller: nameController,
-                  decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintStyle: greyFontStyle,
-                      hintText: 'Masukkan nama resep'),
-                ),
-              ),
-              Container(
-                width: double.infinity,
-                margin: const EdgeInsets.fromLTRB(
-                    defaultMargin, 16, defaultMargin, 6),
-                child: Text(
-                  "Bahan-bahan",
-                  style: blackFontStyle2,
-                ),
-              ),
-              Container(
-                constraints: const BoxConstraints(maxWidth: 500),
-                margin: const EdgeInsets.symmetric(horizontal: defaultMargin),
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: Colors.black)),
-                child: TextFormField(
-                  onChanged: (value) {
-                    ingredients = value;
-                  },
-                  maxLines: null,
-                  keyboardType: TextInputType.multiline,
-                  controller: ingredientsController,
-                  decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintStyle: greyFontStyle,
-                      hintText: 'Masukkan bahan-bahan'),
-                ),
-              ),
-              Container(
-                width: double.infinity,
-                margin: const EdgeInsets.fromLTRB(
-                    defaultMargin, 16, defaultMargin, 6),
-                child: Text(
-                  "Cara pembuatan",
-                  style: blackFontStyle2,
-                ),
-              ),
-              Container(
-                constraints: const BoxConstraints(
-                    maxWidth:
-                        500), // membuat lebar maksimal container menjadi 500
-                margin: const EdgeInsets.symmetric(horizontal: defaultMargin),
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: Colors.black)),
-                child: TextField(
-                  onChanged: (value) {
-                    step = value;
-                  },
-                  maxLines: null,
-                  keyboardType: TextInputType.multiline,
-                  decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintStyle: greyFontStyle,
-                      hintText: 'Masukkan tahapan cara pembuatan'),
-                  controller: stepsController,
-                  style: const TextStyle(fontSize: 16.0),
-                ),
-              ),
-            ],
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text(
-                'Batal',
-                style: TextStyle(color: mainColor),
-              ),
-            ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(backgroundColor: mainColor),
-              onPressed: () {
-                final updatedResep = Resep(
-                  id: resep.id,
-                  name: name,
-                  ingredients: ingredients,
-                  step: step,
-                  picture: Uint8List.fromList(_imageBytes),
-                );
-
-                Provider.of<DbManager>(context, listen: false)
-                    .updateResep(resep.id!, updatedResep);
-
-                Navigator.pop(context);
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Resep Berhasil Diedit'),
-                    backgroundColor: Colors.green,
-                  ),
-                );
-              },
-              child: const Text('Edit'),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
   late SharedPreferences logindata;
   String username = '';
   @override
@@ -471,8 +289,15 @@ class _ResepHomeState extends State<ResepHome> {
                                                     ),
                                                     child: IconButton(
                                                       onPressed: () async {
-                                                        _showEditDialog(
-                                                            resepFinal);
+                                                        // _showEditDialog(
+                                                        //     resepFinal);
+                                                        Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                                builder: ((context) =>
+                                                                    EditResepDialog(
+                                                                        resep:
+                                                                            resepFinal))));
                                                       },
                                                       icon: const Icon(
                                                         Icons.edit,
