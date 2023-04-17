@@ -30,7 +30,9 @@ class DetailResep extends StatelessWidget {
               ),
             ),
           ),
-          SafeArea(child: ListView()),
+          SafeArea(
+            child: ListView(),
+          ),
           //Back button
           SafeArea(
             child: Column(

@@ -215,11 +215,6 @@ class _EditResepDialogState extends State<EditResepDialog> {
                     maxLines: null,
                     keyboardType: TextInputType.multiline,
                     controller: stepsController,
-                    decoration: InputDecoration(
-                        labelText: "Masukkan cara memasak",
-                        border: InputBorder.none,
-                        hintStyle: greyFontStyle,
-                        hintText: "Contoh: masukkan beras ke dalam panci..."),
                   ),
                 ),
                 SizedBox(height: 30),
