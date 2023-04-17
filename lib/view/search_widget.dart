@@ -18,17 +18,15 @@ class SearchWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
             color: Colors.grey[200],
           ),
-          child: Expanded(
-            child: TextField(
-              controller: _searchController,
-              decoration: InputDecoration(
-                prefixIcon: const Icon(Icons.search, color: Colors.grey),
-                hintText: "Cari resep yang sudah kamu tulis...",
-                hintStyle: greyFontStyle.copyWith(fontSize: 10),
-                border: InputBorder.none,
-                contentPadding:
-                    const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
-              ),
+          child: TextField(
+            controller: _searchController,
+            decoration: InputDecoration(
+              prefixIcon: const Icon(Icons.search, color: Colors.grey),
+              hintText: "Cari resep yang sudah kamu tulis...",
+              hintStyle: greyFontStyle.copyWith(fontSize: 10),
+              border: InputBorder.none,
+              contentPadding:
+                  const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
             ),
           ),
         ),
