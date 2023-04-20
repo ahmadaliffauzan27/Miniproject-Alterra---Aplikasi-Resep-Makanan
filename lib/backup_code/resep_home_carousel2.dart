@@ -126,23 +126,25 @@ class _ResepHomeState extends State<ResepHome> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Container(
-                    height: MediaQuery.of(context).size.height / 3.7,
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                      color: mainColor,
-                    ),
-                    child: Center(
-                      child: SizedBox(
+                const SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  height: MediaQuery.of(context).size.height / 3.7,
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    color: mainColor,
+                  ),
+                  child: Column(
+                    children: [
+                      SizedBox(
                         height: 200,
                         child: CarouselSlider(
                           options: CarouselOptions(
                             autoPlay: true,
                             enlargeCenterPage: true,
                             aspectRatio: 16 / 9,
-                            viewportFraction: 0.7,
+                            viewportFraction: 1,
                           ),
                           items: [
                             'assets/banner1.jpg',
@@ -162,7 +164,7 @@ class _ResepHomeState extends State<ResepHome> {
                           }).toList(),
                         ),
                       ),
-                    ),
+                    ],
                   ),
                 ),
                 Container(
@@ -170,9 +172,9 @@ class _ResepHomeState extends State<ResepHome> {
                   padding:
                       const EdgeInsets.symmetric(vertical: 26, horizontal: 16),
                   decoration: const BoxDecoration(
-                    // borderRadius: BorderRadius.only(
-                    //     topLeft: Radius.circular(20),
-                    //     topRight: Radius.circular(20)),
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20)),
                     color: Colors.white,
                   ),
                   child: Column(
