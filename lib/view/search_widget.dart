@@ -30,18 +30,27 @@ class SearchWidget extends StatelessWidget {
             ),
           ),
         ),
-        IconButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const TambahResep(),
-              ),
-            );
-          },
-          icon: const Icon(
-            Icons.library_add,
-            color: Colors.red,
+        Container(
+          width: 40,
+          height: 40,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: mainColor,
+          ),
+          child: IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const TambahResep(),
+                ),
+              );
+            },
+            icon: const Icon(
+              Icons.note_add,
+              color: Colors.white,
+              size: 20,
+            ),
           ),
         ),
       ],
