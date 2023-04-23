@@ -20,38 +20,9 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   late SharedPreferences logindata;
   late bool newUser;
-  File? image;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController nameController = TextEditingController();
-
-  void getFile() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles();
-
-    if (result != null) {
-      File file = File(result.files.single.path!);
-      print('File name: $file');
-
-      setState(() {
-        image = file;
-      });
-    } else {
-      // User canceled the picker
-      // You can show snackbar or fluttertoast
-      // here like this to show warning to user
-      // ignore: use_build_context_synchronously
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text('Please select file'),
-      ));
-    }
-  }
-
-  void saveImageToSharedPreferences(File image) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<int> imageBytes = await image.readAsBytes();
-    String base64Image = base64Encode(imageBytes);
-    prefs.setString('image', base64Image);
-  }
 
   @override
   void dispose() {
@@ -118,37 +89,6 @@ class _RegisterPageState extends State<RegisterPage> {
                           fontWeight: FontWeight.w300, fontSize: 14),
                     ),
                   ],
-                ),
-              ),
-              const SizedBox(
-                height: 60,
-              ),
-              GestureDetector(
-                onTap: () async {
-                  getFile();
-                },
-                child: Container(
-                  width: 110,
-                  height: 110,
-                  margin: const EdgeInsets.only(top: 26),
-                  padding: const EdgeInsets.all(10),
-                  decoration: const BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage('assets/photo_border.png'))),
-                  child: (image != null)
-                      ? Container(
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              image: DecorationImage(
-                                  image: FileImage(image!), fit: BoxFit.cover)),
-                        )
-                      : Container(
-                          decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              image: DecorationImage(
-                                  image: AssetImage('assets/photo.png'),
-                                  fit: BoxFit.cover)),
-                        ),
                 ),
               ),
               const SizedBox(
