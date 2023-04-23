@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:resep_makanan/model/resep_model.dart';
 
 import '../model/database_helper.dart';
+import 'favourite_provider.dart';
 
 class DbManager extends ChangeNotifier {
   List<Resep> _reseps = [];
   late DatabaseHelper _dbHelper;
   List<Resep> get reseps => _reseps;
-
-  List<Resep> _favoriteRecipes = [];
-  List<Resep> get favoriteRecipes => _favoriteRecipes;
+  FavoriteManager favoriteManager = FavoriteManager();
 
   DbManager() {
     _dbHelper = DatabaseHelper();
@@ -45,14 +44,10 @@ class DbManager extends ChangeNotifier {
   }
 
   void addFavorite(Resep resep) {
-    if (!_favoriteRecipes.contains(resep)) {
-      _favoriteRecipes.add(resep);
-      notifyListeners();
-    }
+    favoriteManager.addFavorite(resep);
   }
 
   void removeFavorite(Resep resep) {
-    _favoriteRecipes.remove(resep);
-    notifyListeners();
+    favoriteManager.removeFavorite(resep);
   }
 }

@@ -136,7 +136,9 @@ class _ResepHomeState extends State<ResepHome> {
                               child: Consumer<DbManager>(
                                 builder: (context, provider, child) {
                                   return Text(
-                                    provider.favoriteRecipes.length.toString(),
+                                    provider
+                                        .favoriteManager.favoriteRecipes.length
+                                        .toString(),
                                     style: const TextStyle(
                                       fontSize: 10,
                                       fontWeight: FontWeight.bold,
@@ -240,7 +242,8 @@ class _ResepHomeState extends State<ResepHome> {
                                       ),
                                       child: IconButton(
                                         onPressed: () {
-                                          if (manager.favoriteRecipes
+                                          if (manager
+                                              .favoriteManager.favoriteRecipes
                                               .contains(resepFinal)) {
                                             manager.removeFavorite(resepFinal);
                                           } else {
@@ -250,7 +253,8 @@ class _ResepHomeState extends State<ResepHome> {
                                         icon: Icon(
                                           Icons.favorite,
                                           size: 15,
-                                          color: manager.favoriteRecipes
+                                          color: manager.favoriteManager
+                                                  .favoriteRecipes
                                                   .contains(resepFinal)
                                               ? Colors.red
                                               : Colors.white,

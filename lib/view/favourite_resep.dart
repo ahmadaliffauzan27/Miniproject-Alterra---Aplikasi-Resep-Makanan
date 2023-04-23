@@ -61,7 +61,7 @@ class _FavouriteRecipesState extends State<FavouriteRecipes> {
         padding: EdgeInsets.all(20),
         child: Consumer<DbManager>(
           builder: (context, provider, child) {
-            if (provider.favoriteRecipes.isEmpty) {
+            if (provider.favoriteManager.favoriteRecipes.isEmpty) {
               return Center(
                 child: Text(
                   'Belum ada resep favorite',
@@ -76,9 +76,9 @@ class _FavouriteRecipesState extends State<FavouriteRecipes> {
                   mainAxisSpacing: 8,
                   childAspectRatio: 1,
                 ),
-                itemCount: provider.favoriteRecipes.length,
+                itemCount: provider.favoriteManager.favoriteRecipes.length,
                 itemBuilder: (BuildContext context, int index) {
-                  final resep = provider.favoriteRecipes[index];
+                  final resep = provider.favoriteManager.favoriteRecipes[index];
                   return GestureDetector(
                     onTap: () {
                       Navigator.push(
@@ -137,7 +137,8 @@ class _FavouriteRecipesState extends State<FavouriteRecipes> {
                                     },
                                     icon: Icon(
                                       Icons.favorite,
-                                      color: provider.favoriteRecipes
+                                      color: provider
+                                              .favoriteManager.favoriteRecipes
                                               .contains(resep)
                                           ? Colors.red
                                           : Colors.white,
