@@ -169,7 +169,7 @@ class _ResepHomeState extends State<ResepHome> {
             final reseptModel = manager.reseps;
             if (manager.reseps.isNotEmpty) {
               return Padding(
-                padding: const EdgeInsets.all(25),
+                padding: const EdgeInsets.all(20),
                 child: GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
