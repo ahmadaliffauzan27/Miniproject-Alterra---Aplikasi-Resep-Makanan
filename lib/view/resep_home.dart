@@ -338,7 +338,11 @@ class _ResepHomeState extends State<ResepHome> {
                                                           .deleteResep(
                                                         resepFinal.id!,
                                                       );
-
+                                                      Provider.of<DbManager>(
+                                                              context,
+                                                              listen: false)
+                                                          .removeFavorite(
+                                                              resepFinal);
                                                       ScaffoldMessenger.of(
                                                               context)
                                                           .showSnackBar(
