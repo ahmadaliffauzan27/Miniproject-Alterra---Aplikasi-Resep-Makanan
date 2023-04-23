@@ -63,7 +63,10 @@ class _FavouriteRecipesState extends State<FavouriteRecipes> {
           builder: (context, provider, child) {
             if (provider.favoriteRecipes.isEmpty) {
               return Center(
-                child: Text('You have no favorite recipes yet.'),
+                child: Text(
+                  'Belum ada resep favorite',
+                  style: subtitleFont.copyWith(fontSize: 12, color: greyColor),
+                ),
               );
             } else {
               return GridView.builder(
