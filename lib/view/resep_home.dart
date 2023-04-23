@@ -76,14 +76,15 @@ class _ResepHomeState extends State<ResepHome> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: 16, top: 50, right: 20),
+              padding: const EdgeInsets.only(
+                  left: 16, top: 50, right: 20, bottom: 10),
               child: Align(
                 alignment: Alignment.topLeft,
                 child: Row(
                   children: [
-                    Container(
-                      width: 35,
-                      height: 35,
+                    SizedBox(
+                      width: 50,
+                      height: 50,
                       child: ClipOval(
                         child: Image.asset(
                           'assets/photo3.jpg',
@@ -130,7 +131,7 @@ class _ResepHomeState extends State<ResepHome> {
                               padding: const EdgeInsets.all(2),
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
-                                color: Colors.white,
+                                color: mainColor,
                               ),
                               child: Consumer<DbManager>(
                                 builder: (context, provider, child) {
@@ -159,7 +160,7 @@ class _ResepHomeState extends State<ResepHome> {
           ],
         ),
         toolbarHeight: 80,
-        backgroundColor: Colors.white,
+        backgroundColor: mainColor,
       ),
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -239,8 +240,10 @@ class _ResepHomeState extends State<ResepHome> {
                                       ),
                                       child: IconButton(
                                         onPressed: () {
-                                          if (!manager.favoriteRecipes
+                                          if (manager.favoriteRecipes
                                               .contains(resepFinal)) {
+                                            manager.removeFavorite(resepFinal);
+                                          } else {
                                             manager.addFavorite(resepFinal);
                                           }
                                         },
