@@ -82,7 +82,7 @@ class _LoginPageState extends State<LoginPage> {
                       style: blackFontStyle1,
                     ),
                     Text(
-                      "Daftar dan mulai menulis resep!",
+                      "Login dan mulai menulis resep!",
                       style: greyFontStyle.copyWith(
                           fontWeight: FontWeight.w300, fontSize: 14),
                     ),
