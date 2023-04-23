@@ -45,8 +45,10 @@ class DbManager extends ChangeNotifier {
   }
 
   void addFavorite(Resep resep) {
-    _favoriteRecipes.add(resep);
-    notifyListeners();
+    if (!_favoriteRecipes.contains(resep)) {
+      _favoriteRecipes.add(resep);
+      notifyListeners();
+    }
   }
 
   void removeFavorite(Resep resep) {

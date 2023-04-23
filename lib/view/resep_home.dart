@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:resep_makanan/view/detail_resep.dart';
 import 'package:resep_makanan/view/edit_resep.dart';
+import 'package:resep_makanan/view/favourite_resep.dart';
 import 'package:resep_makanan/view/search_widget.dart';
 import 'package:resep_makanan/view/style/theme.dart';
 import 'package:resep_makanan/view/tambah_resep.dart';
@@ -75,7 +76,7 @@ class _ResepHomeState extends State<ResepHome> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: 16, top: 50),
+              padding: const EdgeInsets.only(left: 16, top: 50, right: 20),
               child: Align(
                 alignment: Alignment.topLeft,
                 child: Row(
@@ -106,17 +107,58 @@ class _ResepHomeState extends State<ResepHome> {
                         ),
                       ],
                     ),
+                    const Spacer(),
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const FavouriteRecipes(),
+                          ),
+                        );
+                      },
+                      child: Stack(
+                        children: [
+                          const Icon(
+                            Icons.favorite_border,
+                            color: Colors.red,
+                          ),
+                          Positioned(
+                            top: 0,
+                            right: 0,
+                            child: Container(
+                              padding: const EdgeInsets.all(2),
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.white,
+                              ),
+                              child: Consumer<DbManager>(
+                                builder: (context, provider, child) {
+                                  return Text(
+                                    provider.favoriteRecipes.length.toString(),
+                                    style: const TextStyle(
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.red,
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
             ),
-            SearchWidget(),
             const SizedBox(
               height: 30,
             ),
           ],
         ),
-        toolbarHeight: 120,
+        toolbarHeight: 80,
         backgroundColor: Colors.white,
       ),
       backgroundColor: Colors.white,
@@ -197,7 +239,10 @@ class _ResepHomeState extends State<ResepHome> {
                                       ),
                                       child: IconButton(
                                         onPressed: () {
-                                          manager.addFavorite(resepFinal);
+                                          if (!manager.favoriteRecipes
+                                              .contains(resepFinal)) {
+                                            manager.addFavorite(resepFinal);
+                                          }
                                         },
                                         icon: Icon(
                                           Icons.favorite,
@@ -341,6 +386,19 @@ class _ResepHomeState extends State<ResepHome> {
             }
           },
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: mainColor,
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const TambahResep(),
+            ),
+          );
+        },
+        tooltip: 'Increment',
+        child: const Icon(Icons.add),
       ),
     );
   }
