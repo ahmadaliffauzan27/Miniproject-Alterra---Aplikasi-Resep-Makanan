@@ -17,7 +17,7 @@ class _FavouriteRecipesState extends State<FavouriteRecipes> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: mainColor,
         elevation: 0,
         toolbarHeight: 100,
         iconTheme: IconThemeData(
@@ -27,7 +27,7 @@ class _FavouriteRecipesState extends State<FavouriteRecipes> {
           children: [
             Container(
               padding: EdgeInsets.symmetric(horizontal: defaultMargin),
-              color: Colors.white,
+              // color: Colors.white,
               height: 100,
               width: double.infinity,
               child: Row(
