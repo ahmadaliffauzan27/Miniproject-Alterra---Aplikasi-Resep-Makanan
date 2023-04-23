@@ -43,40 +43,33 @@ class DetailResep extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: defaultMargin),
                   child: Align(
                     alignment: Alignment.centerLeft,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.pop(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => HomePage()));
-                          },
-                          child: Container(
-                            padding: EdgeInsets.all(3),
-                            width: 30,
-                            height: 30,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                                color: Colors.black12),
-                            child: Image.asset('assets/back_arrow_white.png'),
-                          ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.all(3),
-                          width: 30,
-                          height: 30,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              color: Colors.black12),
-                          child: const Icon(
-                            Icons.favorite_border,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ],
-                    ),
+                    child: StreamBuilder<Object>(
+                        stream: null,
+                        builder: (context, snapshot) {
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.pop(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => HomePage()));
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.all(3),
+                                  width: 30,
+                                  height: 30,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(8),
+                                      color: Colors.black12),
+                                  child: Image.asset(
+                                      'assets/back_arrow_white.png'),
+                                ),
+                              ),
+                            ],
+                          );
+                        }),
                   ),
                 ),
                 //Body
