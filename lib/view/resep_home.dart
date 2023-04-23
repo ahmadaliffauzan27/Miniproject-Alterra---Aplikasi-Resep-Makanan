@@ -125,13 +125,13 @@ class _ResepHomeState extends State<ResepHome> {
                             color: Colors.white,
                           ),
                           Positioned(
-                            top: 0,
-                            right: 0,
+                            top: -1.5,
+                            right: 1,
                             child: Container(
                               padding: const EdgeInsets.all(2),
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
-                                color: mainColor,
+                                color: Colors.white,
                               ),
                               child: Consumer<DbManager>(
                                 builder: (context, provider, child) {
