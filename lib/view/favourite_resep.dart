@@ -136,7 +136,7 @@ class _FavouriteRecipesState extends State<FavouriteRecipes> {
                                       provider.removeFavorite(resep);
                                     },
                                     icon: Icon(
-                                      Icons.favorite,
+                                      Icons.bookmark_add,
                                       color: provider
                                               .favoriteManager.favoriteRecipes
                                               .contains(resep)

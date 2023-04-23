@@ -121,8 +121,8 @@ class _ResepHomeState extends State<ResepHome> {
                       child: Stack(
                         children: [
                           const Icon(
-                            Icons.favorite_border,
-                            color: Colors.red,
+                            Icons.bookmark_added,
+                            color: Colors.white,
                           ),
                           Positioned(
                             top: 0,
@@ -251,7 +251,7 @@ class _ResepHomeState extends State<ResepHome> {
                                           }
                                         },
                                         icon: Icon(
-                                          Icons.favorite,
+                                          Icons.bookmark_add,
                                           size: 15,
                                           color: manager.favoriteManager
                                                   .favoriteRecipes
@@ -342,11 +342,11 @@ class _ResepHomeState extends State<ResepHome> {
                                                           .deleteResep(
                                                         resepFinal.id!,
                                                       );
-                                                      Provider.of<DbManager>(
-                                                              context,
-                                                              listen: false)
-                                                          .removeFavorite(
-                                                              resepFinal);
+                                                      // Provider.of<DbManager>(
+                                                      //         context,
+                                                      //         listen: false)
+                                                      //     .removeFavorite(
+                                                      //         resepFinal);
                                                       ScaffoldMessenger.of(
                                                               context)
                                                           .showSnackBar(

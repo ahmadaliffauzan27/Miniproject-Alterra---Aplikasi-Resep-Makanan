@@ -108,7 +108,12 @@ class _ProfilePageState extends State<ProfilePage> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => FavouriteRecipes()));
+                      },
                       child: Container(
                         height: 55,
                         width: 400,
@@ -120,18 +125,9 @@ class _ProfilePageState extends State<ProfilePage> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              FavouriteRecipes()));
-                                },
-                                child: Text(
-                                  'Favorite Resep',
-                                  style: subtitleFont,
-                                ),
+                              Text(
+                                'Resep Tersimpan',
+                                style: subtitleFont,
                               ),
                               Icon(Icons.keyboard_arrow_right),
                             ],
