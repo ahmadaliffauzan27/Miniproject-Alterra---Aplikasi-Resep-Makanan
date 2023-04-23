@@ -87,7 +87,7 @@ class _ResepHomeState extends State<ResepHome> {
                       height: 50,
                       child: ClipOval(
                         child: Image.asset(
-                          'assets/photo3.jpg',
+                          'assets/photo_profile.png',
                           fit: BoxFit.cover,
                         ),
                       ),

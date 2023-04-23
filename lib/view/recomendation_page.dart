@@ -73,7 +73,7 @@ class _RekomendasiPageState extends State<RekomendasiPage> {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(10),
                         child: Image.asset(
-                          'assets/photo2.jpeg',
+                          'assets/photo_profile.png',
                           fit: BoxFit.cover,
                         ),
                       ),

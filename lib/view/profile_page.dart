@@ -69,7 +69,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               image: AssetImage('assets/photo_border.png'))),
                       child: ClipOval(
                         child: Image.asset(
-                          'assets/photo3.jpg',
+                          'assets/photo_profile.png',
                           fit: BoxFit.cover,
                         ),
                       ),
