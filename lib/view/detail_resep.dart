@@ -30,14 +30,14 @@ class DetailResep extends StatelessWidget {
               ),
             ),
           ),
-          SafeArea(
-            child: ListView(),
-          ),
+          // SafeArea(
+          //   child: ListView(),
+          // ),
           //Back button
           SafeArea(
             child: Column(
               children: [
-                //// Back Button
+                // Back Button
                 Container(
                   height: 100,
                   padding: EdgeInsets.symmetric(horizontal: defaultMargin),
@@ -46,86 +46,78 @@ class DetailResep extends StatelessWidget {
                     child: StreamBuilder<Object>(
                         stream: null,
                         builder: (context, snapshot) {
-                          return Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.pop(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => HomePage()));
-                                },
-                                child: Container(
-                                  padding: EdgeInsets.all(3),
-                                  width: 30,
-                                  height: 30,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(8),
-                                      color: Colors.black12),
-                                  child: Image.asset(
-                                      'assets/back_arrow_white.png'),
-                                ),
-                              ),
-                            ],
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.pop(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => HomePage()));
+                            },
+                            child: Container(
+                              padding: EdgeInsets.all(3),
+                              width: 30,
+                              height: 30,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  color: Colors.black12),
+                              child: Image.asset('assets/back_arrow_white.png'),
+                            ),
                           );
                         }),
                   ),
                 ),
                 //Body
                 Expanded(
-                  child: ListView(
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.only(top: 180),
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 26, horizontal: 16),
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(20),
-                              topRight: Radius.circular(20)),
-                          color: Colors.white,
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              width: double.infinity,
-                              child: Text(
-                                resep.name,
-                                style: blackFontStyle2,
-                              ),
+                  child: Container(
+                    margin: const EdgeInsets.only(top: 180),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 26, horizontal: 16),
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(20),
+                          topRight: Radius.circular(20)),
+                      color: Colors.white,
+                    ),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            width: double.infinity,
+                            child: Text(
+                              resep.name,
+                              style: blackFontStyle2,
                             ),
-                            const SizedBox(
-                              height: 30,
+                          ),
+                          const SizedBox(
+                            height: 30,
+                          ),
+                          Text(
+                            'Bahan-bahan:',
+                            style: blackFontStyle3,
+                          ),
+                          SizedBox(
+                            child: Text(
+                              resep.ingredients,
+                              style: greyFontStyle,
                             ),
-                            Text(
-                              'Bahan-bahan:',
-                              style: blackFontStyle3,
+                          ),
+                          const SizedBox(
+                            height: 30,
+                          ),
+                          Text(
+                            'Cara memasak:',
+                            style: blackFontStyle3,
+                          ),
+                          SizedBox(
+                            child: Text(
+                              resep.step,
+                              style: greyFontStyle,
                             ),
-                            SizedBox(
-                              child: Text(
-                                resep.ingredients,
-                                style: greyFontStyle,
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 30,
-                            ),
-                            Text(
-                              'Cara memasak:',
-                              style: blackFontStyle3,
-                            ),
-                            SizedBox(
-                              child: Text(
-                                resep.step,
-                                style: greyFontStyle,
-                              ),
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
                 ),
               ],
