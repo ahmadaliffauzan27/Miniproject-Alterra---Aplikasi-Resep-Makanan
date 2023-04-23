@@ -29,7 +29,7 @@ class _RekomendasiPageState extends State<RekomendasiPage> {
               height: 100,
               width: double.infinity,
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: mainColor,
                 boxShadow: [
                   BoxShadow(
                     color: Colors.grey.withOpacity(0.1),
@@ -61,6 +61,10 @@ class _RekomendasiPageState extends State<RekomendasiPage> {
                     height: 50,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
+                      border: Border.all(
+                        color: Colors.white,
+                        width: 3,
+                      ),
                     ),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),

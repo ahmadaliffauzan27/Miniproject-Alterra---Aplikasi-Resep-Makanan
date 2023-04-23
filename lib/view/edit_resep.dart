@@ -64,7 +64,7 @@ class _EditResepDialogState extends State<EditResepDialog> {
     final dbManager = Provider.of<DbManager>(context);
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.white,
+          backgroundColor: mainColor,
           elevation: 0,
           toolbarHeight: 100,
           iconTheme: IconThemeData(
@@ -74,7 +74,7 @@ class _EditResepDialogState extends State<EditResepDialog> {
             children: [
               Container(
                 padding: EdgeInsets.symmetric(horizontal: defaultMargin),
-                color: Colors.white,
+                // color: Colors.white,
                 height: 100,
                 width: double.infinity,
                 child: Row(

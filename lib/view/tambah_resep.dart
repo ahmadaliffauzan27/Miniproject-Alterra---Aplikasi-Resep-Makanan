@@ -132,7 +132,7 @@ class _TambahResepState extends State<TambahResep> {
     var pictureFile;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: mainColor,
         elevation: 0,
         toolbarHeight: 100,
         iconTheme: IconThemeData(
@@ -142,7 +142,7 @@ class _TambahResepState extends State<TambahResep> {
           children: [
             Container(
               padding: EdgeInsets.symmetric(horizontal: defaultMargin),
-              color: Colors.white,
+              // color: Colors.white,
               height: 100,
               width: double.infinity,
               child: Row(
