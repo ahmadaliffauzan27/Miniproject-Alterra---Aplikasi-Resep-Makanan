@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:resep_makanan/view/favourite_resep.dart';
 import 'package:resep_makanan/view/register_page.dart';
 import 'package:resep_makanan/view/style/theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -144,9 +145,18 @@ class _ProfilePageState extends State<ProfilePage> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
-                                'Favorite Resep',
-                                style: subtitleFont,
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              FavouriteRecipes()));
+                                },
+                                child: Text(
+                                  'Favorite Resep',
+                                  style: subtitleFont,
+                                ),
                               ),
                               Icon(Icons.keyboard_arrow_right),
                             ],

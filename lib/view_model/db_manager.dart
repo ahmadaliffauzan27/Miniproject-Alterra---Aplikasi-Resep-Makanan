@@ -6,8 +6,10 @@ import '../model/database_helper.dart';
 class DbManager extends ChangeNotifier {
   List<Resep> _reseps = [];
   late DatabaseHelper _dbHelper;
-
   List<Resep> get reseps => _reseps;
+
+  List<Resep> _favoriteRecipes = [];
+  List<Resep> get favoriteRecipes => _favoriteRecipes;
 
   DbManager() {
     _dbHelper = DatabaseHelper();
@@ -39,6 +41,16 @@ class DbManager extends ChangeNotifier {
   void deleteResep(int id) async {
     await _dbHelper.deleteResep(id);
     _getAllReseps();
+    notifyListeners();
+  }
+
+  void addFavorite(Resep resep) {
+    _favoriteRecipes.add(resep);
+    notifyListeners();
+  }
+
+  void removeFavorite(Resep resep) {
+    _favoriteRecipes.remove(resep);
     notifyListeners();
   }
 }

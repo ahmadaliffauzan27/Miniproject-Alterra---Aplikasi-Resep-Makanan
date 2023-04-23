@@ -126,45 +126,45 @@ class _ResepHomeState extends State<ResepHome> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Container(
-                    height: MediaQuery.of(context).size.height / 3.7,
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                      color: mainColor,
-                    ),
-                    child: Center(
-                      child: SizedBox(
-                        height: 200,
-                        child: CarouselSlider(
-                          options: CarouselOptions(
-                            autoPlay: true,
-                            enlargeCenterPage: true,
-                            aspectRatio: 16 / 9,
-                            viewportFraction: 0.7,
-                          ),
-                          items: [
-                            'assets/banner1.jpg',
-                            'assets/banner2.jpg',
-                            'assets/banner3.jpg',
-                          ].map((item) {
-                            return Container(
-                              margin: const EdgeInsets.all(5.0),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                image: DecorationImage(
-                                  image: AssetImage(item),
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            );
-                          }).toList(),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.all(10),
+                //   child: Container(
+                //     height: MediaQuery.of(context).size.height / 3.7,
+                //     width: MediaQuery.of(context).size.width,
+                //     decoration: BoxDecoration(
+                //       color: mainColor,
+                //     ),
+                //     child: Center(
+                //       child: SizedBox(
+                //         height: 200,
+                //         child: CarouselSlider(
+                //           options: CarouselOptions(
+                //             autoPlay: true,
+                //             enlargeCenterPage: true,
+                //             aspectRatio: 16 / 9,
+                //             viewportFraction: 0.7,
+                //           ),
+                //           items: [
+                //             'assets/banner1.jpg',
+                //             'assets/banner2.jpg',
+                //             'assets/banner3.jpg',
+                //           ].map((item) {
+                //             return Container(
+                //               margin: const EdgeInsets.all(5.0),
+                //               decoration: BoxDecoration(
+                //                 borderRadius: BorderRadius.circular(10),
+                //                 image: DecorationImage(
+                //                   image: AssetImage(item),
+                //                   fit: BoxFit.cover,
+                //                 ),
+                //               ),
+                //             );
+                //           }).toList(),
+                //         ),
+                //       ),
+                //     ),
+                //   ),
+                // ),
                 Container(
                   height: MediaQuery.of(context).size.height,
                   padding:
@@ -276,12 +276,18 @@ class _ResepHomeState extends State<ResepHome> {
                                                       ),
                                                       child: IconButton(
                                                         onPressed: () {
-                                                          // manager.toggleFavorite(resepFinal);
+                                                          manager.addFavorite(
+                                                              resepFinal);
                                                         },
-                                                        icon: const Icon(
+                                                        icon: Icon(
                                                           Icons.favorite,
-                                                          color: Colors.white,
                                                           size: 15,
+                                                          color: manager
+                                                                  .favoriteRecipes
+                                                                  .contains(
+                                                                      resepFinal)
+                                                              ? Colors.red
+                                                              : Colors.white,
                                                         ),
                                                       ),
                                                     ),
