@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:resep_makanan/view/style/theme.dart';
 
@@ -218,32 +219,42 @@ class _EditResepDialogState extends State<EditResepDialog> {
                   ),
                 ),
                 SizedBox(height: 30),
-                ElevatedButton(
-                  onPressed: () {
-                    widget.resep.name = name;
-                    widget.resep.ingredients = ingredients;
-                    widget.resep.step = step;
-                    if (_image != null) {
-                      widget.resep.picture = Uint8List.fromList(_imageBytes);
-                    }
-                    Provider.of<DbManager>(context, listen: false)
-                        .updateResep(widget.resep.id!, widget.resep);
-                    Navigator.pop(context);
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Resep Berhasil Diedit'),
-                        backgroundColor: Colors.green,
-                      ),
-                    );
-                  },
-                  child: Text('Simpan Perubahan'),
-                  style: ElevatedButton.styleFrom(
-                      primary: mainColor,
+                Container(
+                  width: double.infinity,
+                  margin: const EdgeInsets.only(top: 24),
+                  height: 45,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: defaultMargin),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      widget.resep.name = name;
+                      widget.resep.ingredients = ingredients;
+                      widget.resep.step = step;
+                      if (_image != null) {
+                        widget.resep.picture = Uint8List.fromList(_imageBytes);
+                      }
+                      Provider.of<DbManager>(context, listen: false)
+                          .updateResep(widget.resep.id!, widget.resep);
+                      Navigator.pop(context);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Resep Berhasil Diedit'),
+                          backgroundColor: Colors.green,
+                        ),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8)),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 60, vertical: 12),
-                      textStyle: subtitleFont.copyWith(fontSize: 16)),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      backgroundColor: mainColor,
+                    ),
+                    child: Text(
+                      'Simpan Perubahan',
+                      style: GoogleFonts.poppins(
+                          color: Colors.black, fontWeight: FontWeight.w500),
+                    ),
+                  ),
                 ),
               ],
             );
