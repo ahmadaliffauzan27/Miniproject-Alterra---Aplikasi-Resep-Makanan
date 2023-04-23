@@ -45,9 +45,11 @@ class DbManager extends ChangeNotifier {
 
   void addFavorite(Resep resep) {
     favoriteManager.addFavorite(resep);
+    notifyListeners();
   }
 
   void removeFavorite(Resep resep) {
     favoriteManager.removeFavorite(resep);
+    notifyListeners();
   }
 }
