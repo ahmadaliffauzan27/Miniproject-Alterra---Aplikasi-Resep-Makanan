@@ -46,7 +46,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 margin: EdgeInsets.only(bottom: defaultMargin),
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: mainColor,
                   boxShadow: [
                     BoxShadow(
                       color: Colors.grey.withOpacity(0.1),
@@ -88,9 +88,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 15,
-              ),
+
               Container(
                 padding: EdgeInsets.symmetric(horizontal: defaultMargin),
                 margin: EdgeInsets.only(bottom: defaultMargin),
@@ -109,29 +107,6 @@ class _ProfilePageState extends State<ProfilePage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    GestureDetector(
-                      onTap: () {},
-                      child: Container(
-                        height: 55,
-                        width: 400,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Pengaturan',
-                                style: subtitleFont,
-                              ),
-                              Icon(Icons.keyboard_arrow_right),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
                     GestureDetector(
                       onTap: () {},
                       child: Container(
