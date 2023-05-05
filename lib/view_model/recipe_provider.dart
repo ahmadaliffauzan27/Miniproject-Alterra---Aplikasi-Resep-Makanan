@@ -10,6 +10,10 @@ class RecipeManager extends ChangeNotifier {
   List<Resep> get reseps => _reseps;
   FavoriteManager favoriteManager = FavoriteManager();
 
+  List<Map<String, dynamic>> resepMakanan = [
+    {"image": null, "name": null, "ingredient": null, "step": null}
+  ];
+
   RecipeManager() {
     _dbHelper = DatabaseHelper();
     _getAllReseps();
