@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:resep_makanan/views/home_page.dart';
-import 'package:resep_makanan/views/register/register_screen.dart';
+import 'package:resep_makanan/views/screens/register/register_screen.dart';
 import 'package:resep_makanan/utils/const/theme.dart';
 
 class SplashScreen extends StatefulWidget {

@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:resep_makanan/views/favourite_recipe/favourite_recipe_screen.dart';
-import 'package:resep_makanan/views/register/register_screen.dart';
+import 'package:resep_makanan/views/screens/favourite_recipe/favourite_recipe_screen.dart';
+import 'package:resep_makanan/views/screens/register/register_screen.dart';
 import 'package:resep_makanan/utils/const/theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

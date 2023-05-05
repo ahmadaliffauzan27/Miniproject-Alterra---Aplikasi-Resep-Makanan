@@ -8,15 +8,15 @@ import 'package:flutter/src/widgets/placeholder.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:resep_makanan/views/detail_recipe/detail_recipe_screen.dart';
-import 'package:resep_makanan/views/edit_recipe/edit_recipe_screen.dart';
-import 'package:resep_makanan/views/favourite_recipe/favourite_recipe_screen.dart';
 import 'package:resep_makanan/utils/const/theme.dart';
-import 'package:resep_makanan/views/add_recipe/add_recipe_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../model/resep_model.dart';
-import '../../view_model/recipe_provider.dart';
+import '../../../model/resep_model.dart';
+import '../../../view_model/recipe_provider.dart';
+import '../add_recipe/add_recipe_screen.dart';
+import '../detail_recipe/detail_recipe_screen.dart';
+import '../edit_recipe/edit_recipe_screen.dart';
+import '../favourite_recipe/favourite_recipe_screen.dart';
 
 class ResepHome extends StatefulWidget {
   const ResepHome({super.key});

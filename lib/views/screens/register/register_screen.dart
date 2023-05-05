@@ -5,7 +5,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:resep_makanan/views/home_page.dart';
-import 'package:resep_makanan/views/login/login_screen.dart';
+import 'package:resep_makanan/views/screens/login/login_screen.dart';
 import 'package:resep_makanan/utils/const/theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:image_picker/image_picker.dart';

@@ -10,7 +10,7 @@ import 'package:resep_makanan/views/home_page.dart';
 import 'package:resep_makanan/utils/const/theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../view_model/recipe_provider.dart';
+import '../../../view_model/recipe_provider.dart';
 
 class TambahResep extends StatefulWidget {
   final Resep? resep;

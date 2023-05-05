@@ -8,8 +8,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:resep_makanan/utils/const/theme.dart';
 
-import '../../model/resep_model.dart';
-import '../../view_model/recipe_provider.dart';
+import '../../../model/resep_model.dart';
+import '../../../view_model/recipe_provider.dart';
 
 class EditResepDialog extends StatefulWidget {
   final Resep resep;

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:resep_makanan/views/home_page.dart';
-import 'package:resep_makanan/views/register/register_screen.dart';
-import 'package:resep_makanan/views/splash/splash_screen.dart';
+import 'package:resep_makanan/views/screens/register/register_screen.dart';
+import 'package:resep_makanan/views/screens/splash/splash_screen.dart';
 import 'package:resep_makanan/view_model/recipe_provider.dart';
 import 'package:flutter/services.dart';
 
