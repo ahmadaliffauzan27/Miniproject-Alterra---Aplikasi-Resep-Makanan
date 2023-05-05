@@ -1,9 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:resep_makanan/view/favourite_resep.dart';
-import 'package:resep_makanan/view/register_page.dart';
-import 'package:resep_makanan/view/style/theme.dart';
+import 'package:resep_makanan/views/favourite_recipe/favourite_recipe_screen.dart';
+import 'package:resep_makanan/views/register/register_screen.dart';
+import 'package:resep_makanan/utils/const/theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfilePage extends StatefulWidget {

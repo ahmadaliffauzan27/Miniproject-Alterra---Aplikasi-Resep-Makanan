@@ -4,30 +4,32 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:resep_makanan/view/home_page.dart';
-import 'package:resep_makanan/view/register_page.dart';
-import 'package:resep_makanan/view/style/theme.dart';
+import 'package:resep_makanan/views/home_page.dart';
+import 'package:resep_makanan/views/login/login_screen.dart';
+import 'package:resep_makanan/utils/const/theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:image_picker/image_picker.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   late SharedPreferences logindata;
   late bool newUser;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
 
   @override
   void dispose() {
     super.dispose();
     emailController.dispose();
     passwordController.dispose();
+    nameController.dispose();
   }
 
   @override
@@ -82,7 +84,7 @@ class _LoginPageState extends State<LoginPage> {
                       style: blackFontStyle1,
                     ),
                     Text(
-                      "Login dan mulai menulis resep!",
+                      "Daftar dan mulai menulis resep!",
                       style: greyFontStyle.copyWith(
                           fontWeight: FontWeight.w300, fontSize: 14),
                     ),
@@ -90,7 +92,31 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               const SizedBox(
-                height: 10,
+                height: 30,
+              ),
+              Container(
+                width: double.infinity,
+                margin: const EdgeInsets.fromLTRB(
+                    defaultMargin, 16, defaultMargin, 6),
+                child: Text(
+                  "Nama Lengkap",
+                  style: blackFontStyle2,
+                ),
+              ),
+              Container(
+                width: double.infinity,
+                margin: const EdgeInsets.symmetric(horizontal: defaultMargin),
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: Colors.black)),
+                child: TextField(
+                  controller: nameController,
+                  decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintStyle: greyFontStyle,
+                      hintText: 'Masukkan nama lengkap'),
+                ),
               ),
               Container(
                 width: double.infinity,
@@ -148,8 +174,10 @@ class _LoginPageState extends State<LoginPage> {
                 padding: const EdgeInsets.symmetric(horizontal: defaultMargin),
                 child: ElevatedButton(
                   onPressed: () {
+                    String username = nameController.text;
                     String email = emailController.text;
                     logindata.setBool('daftar', false);
+                    logindata.setString('username', username);
                     logindata.setString('email', email);
                     // saveImageToSharedPreferences(image!);
                     Navigator.pushAndRemoveUntil(
@@ -166,7 +194,7 @@ class _LoginPageState extends State<LoginPage> {
                     backgroundColor: mainColor,
                   ),
                   child: Text(
-                    'Masuk',
+                    'Daftar',
                     style: GoogleFonts.poppins(
                         color: Colors.black, fontWeight: FontWeight.w500),
                   ),
@@ -180,7 +208,7 @@ class _LoginPageState extends State<LoginPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Belum mempunyai akun?",
+                      "Sudah mempunyai akun?",
                       style: blackFontStyle2,
                     ),
                     GestureDetector(
@@ -188,10 +216,10 @@ class _LoginPageState extends State<LoginPage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => RegisterPage()));
+                                builder: (context) => LoginPage()));
                       },
                       child: Text(
-                        " Daftar",
+                        " Masuk",
                         style: blackFontStyle2.copyWith(color: Colors.blue),
                       ),
                     )

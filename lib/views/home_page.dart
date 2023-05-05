@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:resep_makanan/view/custom_bottom_navbar.dart';
-import 'package:resep_makanan/view/profile_page.dart';
-import 'package:resep_makanan/view/recomendation_page.dart';
-import 'package:resep_makanan/view/resep_home.dart';
+import 'package:resep_makanan/views/navbar/custom_bottom_navbar.dart';
+import 'package:resep_makanan/views/profile/profile_screen.dart';
+import 'package:resep_makanan/views/recommendation/recomendation_screen.dart';
+import 'package:resep_makanan/views/home/home_screen.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

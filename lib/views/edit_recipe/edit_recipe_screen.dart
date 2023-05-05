@@ -1,84 +1,44 @@
+import 'dart:convert';
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:resep_makanan/model/resep_model.dart';
-import 'package:resep_makanan/view/home_page.dart';
-import 'package:resep_makanan/view/style/theme.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:resep_makanan/utils/const/theme.dart';
 
-import '../view_model/db_manager.dart';
+import '../../model/resep_model.dart';
+import '../../view_model/recipe_provider.dart';
 
-class TambahResep extends StatefulWidget {
-  final Resep? resep;
-  const TambahResep({super.key, this.resep});
+class EditResepDialog extends StatefulWidget {
+  final Resep resep;
+
+  EditResepDialog({required this.resep});
 
   @override
-  State<TambahResep> createState() => _TambahResepState();
+  _EditResepDialogState createState() => _EditResepDialogState();
 }
 
-class _TambahResepState extends State<TambahResep> {
-  late SharedPreferences logindata;
-  int idRandom = 0;
-  final _formKey = GlobalKey<FormState>();
-  TextEditingController inggridientsController = TextEditingController();
-  TextEditingController stepController = TextEditingController();
-  TextEditingController nameController = TextEditingController();
-  bool _isUpdate = false;
+class _EditResepDialogState extends State<EditResepDialog> {
+  String name = '';
+  String ingredients = '';
+  String step = '';
+  File? picture;
   List<int> _imageBytes = [];
+
+  late TextEditingController nameController;
+  late TextEditingController ingredientsController;
+  late TextEditingController stepsController;
   File? _image;
-
-  void generateId() {
-    idRandom++;
-  }
-
-  @override
-  void dispose() {
-    inggridientsController.dispose();
-    stepController.dispose();
-    nameController.dispose();
-    super.dispose();
-  }
 
   @override
   void initState() {
     super.initState();
-    generateId();
-  }
-
-  void _saveResep() {
-    if (_formKey.currentState!.validate()) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Resep Berhasil Ditambahkan!'),
-          backgroundColor: Colors.green,
-        ),
-      );
-      final resepToAdd = Resep(
-        id: widget.resep?.id,
-        name: nameController.text,
-        ingredients: inggridientsController.text,
-        step: stepController.text,
-        picture: Uint8List.fromList(_imageBytes),
-      );
-      Provider.of<DbManager>(context, listen: false).addResep(resepToAdd);
-
-      nameController.clear();
-      inggridientsController.clear();
-      stepController.clear();
-
-      generateId();
-
-      Navigator.pop(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const HomePage(),
-        ),
-      );
-    }
+    nameController = TextEditingController(text: widget.resep.name);
+    ingredientsController =
+        TextEditingController(text: widget.resep.ingredients);
+    stepsController = TextEditingController(text: widget.resep.step);
   }
 
   void getFile() async {
@@ -93,94 +53,68 @@ class _TambahResepState extends State<TambahResep> {
         _imageBytes = file.readAsBytesSync();
       });
     } else {
-      // User canceled the picker
-      // You can show snackbar or fluttertoast
-      // here like this to show warning to user
-      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text('Please select file'),
       ));
     }
-  }
-
-  String? validateName(String? name) {
-    if (name == null || name.isEmpty) {
-      return "Nama resep tidak boleh kosong";
-    } else {
-      return null;
-    }
-  }
-
-  String? validateIngredients(String? ingredients) {
-    if (ingredients == null || ingredients.isEmpty) {
-      return "Bahan-bahan tidak boleh kosong";
-    } else {
-      return null;
-    }
-  }
-
-  String? validateStep(String? step) {
-    if (step == null || step.isEmpty) {
-      return "Cara membuat tidak boleh kosong";
-    } else {
-      return null;
-    }
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    var pictureFile;
+    final dbManager = Provider.of<RecipeManager>(context);
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: mainColor,
-        elevation: 0,
-        toolbarHeight: 100,
-        iconTheme: IconThemeData(
-          color: Colors.black, // Ubah warna ikon menjadi hitam
-        ),
-        title: Column(
-          children: [
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: defaultMargin),
-              // color: Colors.white,
-              height: 100,
-              width: double.infinity,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        height: 16,
-                      ),
-                      Text(
-                        'ResepKu',
-                        style: blackFontStyle1,
-                      ),
-                      Text(
-                        "Ayo tulis resep terbaikmu!",
-                        style: greyFontStyle.copyWith(
-                            fontWeight: FontWeight.w300, fontSize: 14),
-                      ),
-                    ],
-                  ),
-                ],
+        appBar: AppBar(
+          backgroundColor: mainColor,
+          elevation: 0,
+          toolbarHeight: 100,
+          iconTheme: IconThemeData(
+            color: Colors.black, // Ubah warna ikon menjadi hitam
+          ),
+          title: Column(
+            children: [
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: defaultMargin),
+                // color: Colors.white,
+                height: 100,
+                width: double.infinity,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          height: 16,
+                        ),
+                        Text(
+                          'ResepKu',
+                          style: blackFontStyle1,
+                        ),
+                        Text(
+                          "Silahkan edit resepmu!",
+                          style: greyFontStyle.copyWith(
+                              fontWeight: FontWeight.w300, fontSize: 14),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
-      body: ListView(
-        children: [
-          Form(
-            key: _formKey,
-            child: Column(
+        body: SingleChildScrollView(
+          child: Consumer<RecipeManager>(builder: (context, dbManager, child) {
+            final resep = dbManager.reseps;
+
+            return Column(
               children: [
                 GestureDetector(
                   onTap: () async {
                     getFile();
+                    setState(() {});
                   },
                   child: Container(
                     width: 110,
@@ -224,7 +158,9 @@ class _TambahResepState extends State<TambahResep> {
                       borderRadius: BorderRadius.circular(8),
                       border: Border.all(color: Colors.black)),
                   child: TextFormField(
-                    validator: validateName,
+                    onChanged: (value) {
+                      name = value;
+                    },
                     controller: nameController,
                     decoration: InputDecoration(
                         border: InputBorder.none,
@@ -242,21 +178,19 @@ class _TambahResepState extends State<TambahResep> {
                   ),
                 ),
                 Container(
-                  width: double.infinity,
+                  constraints: const BoxConstraints(maxWidth: 500),
                   margin: const EdgeInsets.symmetric(horizontal: defaultMargin),
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
                       border: Border.all(color: Colors.black)),
                   child: TextFormField(
+                    onChanged: (value) {
+                      ingredients = value;
+                    },
                     maxLines: null,
                     keyboardType: TextInputType.multiline,
-                    validator: validateIngredients,
-                    controller: inggridientsController,
-                    decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintStyle: greyFontStyle,
-                        hintText: 'Masukkan bahan-bahan'),
+                    controller: ingredientsController,
                   ),
                 ),
                 Container(
@@ -264,30 +198,27 @@ class _TambahResepState extends State<TambahResep> {
                   margin: const EdgeInsets.fromLTRB(
                       defaultMargin, 16, defaultMargin, 6),
                   child: Text(
-                    "Cara pembuatan",
+                    "Cara Memasak",
                     style: blackFontStyle2,
                   ),
                 ),
                 Container(
-                  constraints: const BoxConstraints(
-                      maxWidth:
-                          500), // membuat lebar maksimal container menjadi 500
+                  constraints: const BoxConstraints(maxWidth: 500),
                   margin: const EdgeInsets.symmetric(horizontal: defaultMargin),
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
                       border: Border.all(color: Colors.black)),
-                  child: TextField(
+                  child: TextFormField(
+                    onChanged: (value) {
+                      step = value;
+                    },
                     maxLines: null,
                     keyboardType: TextInputType.multiline,
-                    decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintStyle: greyFontStyle,
-                        hintText: 'Masukkan tahapan cara pembuatan'),
-                    controller: stepController,
-                    style: const TextStyle(fontSize: 16.0),
+                    controller: stepsController,
                   ),
                 ),
+                SizedBox(height: 30),
                 Container(
                   width: double.infinity,
                   margin: const EdgeInsets.only(top: 24),
@@ -296,7 +227,21 @@ class _TambahResepState extends State<TambahResep> {
                       const EdgeInsets.symmetric(horizontal: defaultMargin),
                   child: ElevatedButton(
                     onPressed: () {
-                      _saveResep();
+                      widget.resep.name = name;
+                      widget.resep.ingredients = ingredients;
+                      widget.resep.step = step;
+                      if (_image != null) {
+                        widget.resep.picture = Uint8List.fromList(_imageBytes);
+                      }
+                      Provider.of<RecipeManager>(context, listen: false)
+                          .updateResep(widget.resep.id!, widget.resep);
+                      Navigator.pop(context);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Resep Berhasil Diedit'),
+                          backgroundColor: Colors.green,
+                        ),
+                      );
                     },
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
@@ -305,17 +250,15 @@ class _TambahResepState extends State<TambahResep> {
                       backgroundColor: mainColor,
                     ),
                     child: Text(
-                      'Buat',
+                      'Simpan Perubahan',
                       style: GoogleFonts.poppins(
                           color: Colors.black, fontWeight: FontWeight.w500),
                     ),
                   ),
                 ),
               ],
-            ),
-          ),
-        ],
-      ),
-    );
+            );
+          }),
+        ));
   }
 }

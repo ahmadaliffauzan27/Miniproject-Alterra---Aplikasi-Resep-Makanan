@@ -4,13 +4,13 @@ import 'package:resep_makanan/model/resep_model.dart';
 import '../model/database_helper.dart';
 import 'favourite_provider.dart';
 
-class DbManager extends ChangeNotifier {
+class RecipeManager extends ChangeNotifier {
   List<Resep> _reseps = [];
   late DatabaseHelper _dbHelper;
   List<Resep> get reseps => _reseps;
   FavoriteManager favoriteManager = FavoriteManager();
 
-  DbManager() {
+  RecipeManager() {
     _dbHelper = DatabaseHelper();
     _getAllReseps();
     notifyListeners();

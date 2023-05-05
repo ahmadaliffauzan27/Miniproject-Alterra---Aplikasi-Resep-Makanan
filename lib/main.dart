@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:resep_makanan/view/home_page.dart';
-import 'package:resep_makanan/view/register_page.dart';
-import 'package:resep_makanan/view/splash_screen.dart';
-import 'package:resep_makanan/view_model/db_manager.dart';
+import 'package:resep_makanan/views/home_page.dart';
+import 'package:resep_makanan/views/register/register_screen.dart';
+import 'package:resep_makanan/views/splash/splash_screen.dart';
+import 'package:resep_makanan/view_model/recipe_provider.dart';
 import 'package:flutter/services.dart';
 
 void main() {
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
     ]);
 
     return ChangeNotifierProvider(
-      create: (context) => DbManager(),
+      create: (context) => RecipeManager(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         routes: {

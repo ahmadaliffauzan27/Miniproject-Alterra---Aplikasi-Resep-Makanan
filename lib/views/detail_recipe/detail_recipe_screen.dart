@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:resep_makanan/view/home_page.dart';
-import 'package:resep_makanan/view/style/theme.dart';
+import 'package:resep_makanan/views/home_page.dart';
+import 'package:resep_makanan/utils/const/theme.dart';
 
-import '../model/resep_model.dart';
+import '../../model/resep_model.dart';
 
 class DetailResep extends StatelessWidget {
   final Resep resep;

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:resep_makanan/view/style/theme.dart';
-import 'package:resep_makanan/view_model/db_manager.dart';
+import 'package:resep_makanan/utils/const/theme.dart';
+import 'package:resep_makanan/view_model/recipe_provider.dart';
 
-import 'detail_resep.dart';
+import '../detail_recipe/detail_recipe_screen.dart';
 
 class FavouriteRecipes extends StatefulWidget {
   const FavouriteRecipes({super.key});
@@ -59,7 +59,7 @@ class _FavouriteRecipesState extends State<FavouriteRecipes> {
       ),
       body: Padding(
         padding: EdgeInsets.all(20),
-        child: Consumer<DbManager>(
+        child: Consumer<RecipeManager>(
           builder: (context, provider, child) {
             if (provider.favoriteManager.favoriteRecipes.isEmpty) {
               return Center(

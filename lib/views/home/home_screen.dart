@@ -8,16 +8,15 @@ import 'package:flutter/src/widgets/placeholder.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:resep_makanan/view/detail_resep.dart';
-import 'package:resep_makanan/view/edit_resep.dart';
-import 'package:resep_makanan/view/favourite_resep.dart';
-import 'package:resep_makanan/view/search_widget.dart';
-import 'package:resep_makanan/view/style/theme.dart';
-import 'package:resep_makanan/view/tambah_resep.dart';
+import 'package:resep_makanan/views/detail_recipe/detail_recipe_screen.dart';
+import 'package:resep_makanan/views/edit_recipe/edit_recipe_screen.dart';
+import 'package:resep_makanan/views/favourite_recipe/favourite_recipe_screen.dart';
+import 'package:resep_makanan/utils/const/theme.dart';
+import 'package:resep_makanan/views/add_recipe/add_recipe_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../model/resep_model.dart';
-import '../view_model/db_manager.dart';
+import '../../model/resep_model.dart';
+import '../../view_model/recipe_provider.dart';
 
 class ResepHome extends StatefulWidget {
   const ResepHome({super.key});
@@ -133,7 +132,7 @@ class _ResepHomeState extends State<ResepHome> {
                                 shape: BoxShape.circle,
                                 color: Colors.white,
                               ),
-                              child: Consumer<DbManager>(
+                              child: Consumer<RecipeManager>(
                                 builder: (context, provider, child) {
                                   return Text(
                                     provider
@@ -166,7 +165,7 @@ class _ResepHomeState extends State<ResepHome> {
       ),
       backgroundColor: Colors.white,
       body: SafeArea(
-        child: Consumer<DbManager>(
+        child: Consumer<RecipeManager>(
           builder: (context, manager, child) {
             final reseptModel = manager.reseps;
             if (manager.reseps.isNotEmpty) {
@@ -336,7 +335,7 @@ class _ResepHomeState extends State<ResepHome> {
                                                           step: resepFinal.step,
                                                           picture: resepFinal
                                                               .picture);
-                                                      Provider.of<DbManager>(
+                                                      Provider.of<RecipeManager>(
                                                               context,
                                                               listen: false)
                                                           .deleteResep(

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:resep_makanan/model/apis/api_resep.dart';
 import 'package:resep_makanan/model/resep_model_api.dart';
-import 'package:resep_makanan/view/style/theme.dart';
+import 'package:resep_makanan/utils/const/theme.dart';
 import 'package:resep_makanan/view_model/recomendation_provider.dart';
 
 class RekomendasiPage extends StatefulWidget {

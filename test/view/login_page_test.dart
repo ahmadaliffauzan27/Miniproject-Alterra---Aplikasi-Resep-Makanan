@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:resep_makanan/view/login_page.dart';
-import 'package:resep_makanan/view/register_page.dart';
+import 'package:resep_makanan/views/login/login_screen.dart';
+import 'package:resep_makanan/views/register/register_screen.dart';
 
 void main() {
   group('LoginPage Widget Test', () {

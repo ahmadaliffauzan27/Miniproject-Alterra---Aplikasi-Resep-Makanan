@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:resep_makanan/view/home_page.dart';
-import 'package:resep_makanan/view/register_page.dart';
-import 'package:resep_makanan/view/style/theme.dart';
+import 'package:resep_makanan/views/home_page.dart';
+import 'package:resep_makanan/views/register/register_screen.dart';
+import 'package:resep_makanan/utils/const/theme.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
