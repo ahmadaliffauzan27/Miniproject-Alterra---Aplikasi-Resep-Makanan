@@ -231,7 +231,7 @@ class _ResepHomeState extends State<ResepHome> {
                       ),
                       scrollDirection: Axis.vertical,
                       shrinkWrap: true,
-                      // physics: const NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       itemCount: reseptModel.length,
                       itemBuilder: (BuildContext context, int index) {
                         final resepFinal = manager.reseps[index];
