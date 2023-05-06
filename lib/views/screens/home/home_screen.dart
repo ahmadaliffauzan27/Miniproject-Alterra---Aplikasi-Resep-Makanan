@@ -72,7 +72,7 @@ class _ResepHomeState extends State<ResepHome> {
     final provider = Provider.of<RecipeManager>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 160,
+        toolbarHeight: 150,
         backgroundColor: Colors.transparent,
         elevation: 0,
         flexibleSpace: Container(
@@ -88,7 +88,7 @@ class _ResepHomeState extends State<ResepHome> {
             children: [
               Padding(
                 padding: const EdgeInsets.only(
-                    left: 16, top: 50, right: 16, bottom: 10),
+                    left: 16, top: 60, right: 16, bottom: 10),
                 child: Align(
                   alignment: Alignment.topLeft,
                   child: Column(
@@ -138,8 +138,8 @@ class _ResepHomeState extends State<ResepHome> {
                                   size: 35,
                                 ),
                                 Positioned(
-                                  top: -1,
-                                  right: 2,
+                                  top: -2,
+                                  right: 1,
                                   child: Container(
                                     padding: const EdgeInsets.all(2),
                                     decoration: const BoxDecoration(
@@ -153,7 +153,7 @@ class _ResepHomeState extends State<ResepHome> {
                                               .favoriteRecipes.length
                                               .toString(),
                                           style: const TextStyle(
-                                            fontSize: 13,
+                                            fontSize: 16,
                                             fontWeight: FontWeight.bold,
                                             color: Colors.red,
                                           ),
@@ -453,11 +453,14 @@ class _ResepHomeState extends State<ResepHome> {
                     ),
                   );
                 } else {
-                  return Center(
-                    child: Text(
-                      'Belum ada resep yang ditulis.',
-                      style:
-                          subtitleFont.copyWith(fontSize: 12, color: greyColor),
+                  return Padding(
+                    padding: const EdgeInsets.only(top: 250),
+                    child: Center(
+                      child: Text(
+                        'Belum ada resep yang ditulis.',
+                        style: subtitleFont.copyWith(
+                            fontSize: 12, color: greyColor),
+                      ),
                     ),
                   );
                 }
