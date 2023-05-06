@@ -72,124 +72,130 @@ class _ResepHomeState extends State<ResepHome> {
     final provider = Provider.of<RecipeManager>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(
-                  left: 16, top: 50, right: 20, bottom: 10),
-              child: Align(
-                alignment: Alignment.topLeft,
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        SizedBox(
-                          width: 50,
-                          height: 50,
-                          child: ClipOval(
-                            child: Image.asset(
-                              'assets/photo_profile.png',
-                              fit: BoxFit.cover,
+        toolbarHeight: 160,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [mainColor, Colors.orange],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: 16, top: 50, right: 16, bottom: 10),
+                child: Align(
+                  alignment: Alignment.topLeft,
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: 50,
+                            height: 50,
+                            child: ClipOval(
+                              child: Image.asset(
+                                'assets/photo_profile.png',
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Selamat datang',
-                              style: subtitleFont.copyWith(fontSize: 11),
-                            ),
-                            Text(
-                              'Chef $username',
-                              style: subtitleFont.copyWith(fontSize: 12),
-                            ),
-                          ],
-                        ),
-                        const Spacer(),
-                        InkWell(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const FavouriteRecipes(),
-                              ),
-                            );
-                          },
-                          child: Stack(
+                          const SizedBox(width: 10),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Icon(
-                                Icons.bookmark_added,
-                                color: Colors.white,
+                              Text(
+                                'Selamat datang',
+                                style: subtitleFont.copyWith(fontSize: 11),
                               ),
-                              Positioned(
-                                top: -1.5,
-                                right: 1,
-                                child: Container(
-                                  padding: const EdgeInsets.all(2),
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Colors.white,
-                                  ),
-                                  child: Consumer<RecipeManager>(
-                                    builder: (context, provider, child) {
-                                      return Text(
-                                        provider.favoriteManager.favoriteRecipes
-                                            .length
-                                            .toString(),
-                                        style: const TextStyle(
-                                          fontSize: 10,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.red,
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                ),
+                              Text(
+                                'Chef $username',
+                                style: subtitleFont.copyWith(fontSize: 12),
                               ),
                             ],
                           ),
+                          const Spacer(),
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const FavouriteRecipes(),
+                                ),
+                              );
+                            },
+                            child: Stack(
+                              children: [
+                                const Icon(
+                                  Icons.bookmark_added,
+                                  color: Colors.white,
+                                  size: 35,
+                                ),
+                                Positioned(
+                                  top: -1,
+                                  right: 2,
+                                  child: Container(
+                                    padding: const EdgeInsets.all(2),
+                                    decoration: const BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Colors.white,
+                                    ),
+                                    child: Consumer<RecipeManager>(
+                                      builder: (context, provider, child) {
+                                        return Text(
+                                          provider.favoriteManager
+                                              .favoriteRecipes.length
+                                              .toString(),
+                                          style: const TextStyle(
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.red,
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 10),
+                      Card(
+                        shadowColor: mainColor,
+                        elevation: 2,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5),
                         ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Card(
-                      shadowColor: mainColor,
-                      elevation: 2,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5)),
-                      child: TextFormField(
-                        onChanged: (value) {
-                          provider.searchData(value);
-                        },
-                        decoration: InputDecoration(
-                          contentPadding: const EdgeInsets.symmetric(
-                              vertical: 10, horizontal: 10),
-                          suffixIcon: const Icon(Icons.search),
-                          hintText: 'Search...',
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5),
+                        child: TextFormField(
+                          onChanged: (value) {
+                            provider.searchData(value);
+                          },
+                          decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 10),
+                            suffixIcon: const Icon(Icons.search),
+                            hintText: 'Cari ResepKu...',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-          ],
+            ],
+          ),
         ),
-        toolbarHeight: 150,
-        backgroundColor: mainColor,
       ),
       backgroundColor: Colors.white,
       body: SafeArea(
