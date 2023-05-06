@@ -66,9 +66,9 @@ class _EditResepDialogState extends State<EditResepDialog> {
         ingredients != null &&
         step != null &&
         _imageBytes != null &&
-        name!.isNotEmpty &&
-        ingredients!.isNotEmpty &&
-        step!.isNotEmpty) {
+        name.isNotEmpty &&
+        ingredients.isNotEmpty &&
+        step.isNotEmpty) {
       setState(() {
         _isButtonEnabled = true;
       });
