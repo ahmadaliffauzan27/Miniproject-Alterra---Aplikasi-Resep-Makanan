@@ -60,6 +60,25 @@ class _EditResepDialogState extends State<EditResepDialog> {
     setState(() {});
   }
 
+  bool _isButtonEnabled = false;
+  void _checkAllFormsFilled() {
+    if (name != null &&
+        ingredients != null &&
+        step != null &&
+        _imageBytes != null &&
+        name!.isNotEmpty &&
+        ingredients!.isNotEmpty &&
+        step!.isNotEmpty) {
+      setState(() {
+        _isButtonEnabled = true;
+      });
+    } else {
+      setState(() {
+        _isButtonEnabled = false;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final dbManager = Provider.of<RecipeManager>(context);
@@ -178,6 +197,7 @@ class _EditResepDialogState extends State<EditResepDialog> {
                   child: TextFormField(
                     onChanged: (value) {
                       name = value;
+                      _checkAllFormsFilled();
                     },
                     controller: nameController,
                     decoration: InputDecoration(
@@ -205,6 +225,7 @@ class _EditResepDialogState extends State<EditResepDialog> {
                   child: TextFormField(
                     onChanged: (value) {
                       ingredients = value;
+                      _checkAllFormsFilled();
                     },
                     maxLines: null,
                     keyboardType: TextInputType.multiline,
@@ -230,6 +251,7 @@ class _EditResepDialogState extends State<EditResepDialog> {
                   child: TextFormField(
                     onChanged: (value) {
                       step = value;
+                      _checkAllFormsFilled();
                     },
                     maxLines: null,
                     keyboardType: TextInputType.multiline,
@@ -244,23 +266,32 @@ class _EditResepDialogState extends State<EditResepDialog> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: defaultMargin),
                   child: ElevatedButton(
-                    onPressed: () {
-                      widget.resep.name = name;
-                      widget.resep.ingredients = ingredients;
-                      widget.resep.step = step;
-                      if (_image != null) {
-                        widget.resep.picture = Uint8List.fromList(_imageBytes);
-                      }
-                      Provider.of<RecipeManager>(context, listen: false)
-                          .updateResep(widget.resep.id!, widget.resep);
-                      Navigator.pop(context);
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Resep Berhasil Diedit'),
-                          backgroundColor: Colors.green,
-                        ),
-                      );
-                    },
+                    onPressed: (name != null &&
+                            ingredients != null &&
+                            step != null &&
+                            _image != null &&
+                            name.isNotEmpty &&
+                            ingredients.isNotEmpty &&
+                            step.isNotEmpty)
+                        ? () {
+                            widget.resep.name = name;
+                            widget.resep.ingredients = ingredients;
+                            widget.resep.step = step;
+                            if (_image != null) {
+                              widget.resep.picture =
+                                  Uint8List.fromList(_imageBytes);
+                            }
+                            Provider.of<RecipeManager>(context, listen: false)
+                                .updateResep(widget.resep.id!, widget.resep);
+                            Navigator.pop(context);
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Resep Berhasil Diedit'),
+                                backgroundColor: Colors.green,
+                              ),
+                            );
+                          }
+                        : null,
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),

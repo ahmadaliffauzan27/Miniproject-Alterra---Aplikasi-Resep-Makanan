@@ -30,6 +30,7 @@ class _TambahResepState extends State<TambahResep> {
   bool _isUpdate = false;
   List<int> _imageBytes = [];
   File? _image;
+  bool _isButtonDisabled = false;
 
   void generateId() {
     idRandom++;
@@ -50,7 +51,17 @@ class _TambahResepState extends State<TambahResep> {
   }
 
   void _saveResep() {
-    if (_formKey.currentState!.validate()) {
+    if (nameController.text.isEmpty ||
+        inggridientsController.text.isEmpty ||
+        stepController.text.isEmpty ||
+        _image == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Harap lengkapi seluruh field terlebih dahulu!'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Resep Berhasil Ditambahkan!'),
@@ -65,7 +76,6 @@ class _TambahResepState extends State<TambahResep> {
         picture: Uint8List.fromList(_imageBytes),
       );
       Provider.of<RecipeManager>(context, listen: false).addResep(resepToAdd);
-
       nameController.clear();
       inggridientsController.clear();
       stepController.clear();
@@ -242,7 +252,7 @@ class _TambahResepState extends State<TambahResep> {
                       borderRadius: BorderRadius.circular(8),
                       border: Border.all(color: Colors.black)),
                   child: TextFormField(
-                    validator: validateName,
+                    // validator: validateName,
                     controller: nameController,
                     decoration: InputDecoration(
                         border: InputBorder.none,
@@ -269,7 +279,7 @@ class _TambahResepState extends State<TambahResep> {
                   child: TextFormField(
                     maxLines: null,
                     keyboardType: TextInputType.multiline,
-                    validator: validateIngredients,
+                    // validator: validateIngredients,
                     controller: inggridientsController,
                     decoration: InputDecoration(
                         border: InputBorder.none,
@@ -307,28 +317,28 @@ class _TambahResepState extends State<TambahResep> {
                   ),
                 ),
                 Container(
-                  width: double.infinity,
-                  margin: const EdgeInsets.only(top: 24),
-                  height: 45,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: defaultMargin),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      _saveResep();
-                    },
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
+                    width: double.infinity,
+                    margin: const EdgeInsets.only(top: 24),
+                    height: 45,
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: defaultMargin),
+                    child: ElevatedButton(
+                      onPressed: _isButtonDisabled ? null : _saveResep,
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        backgroundColor:
+                            _isButtonDisabled ? Colors.grey : mainColor,
                       ),
-                      backgroundColor: mainColor,
-                    ),
-                    child: Text(
-                      'Buat',
-                      style: GoogleFonts.poppins(
-                          color: Colors.black, fontWeight: FontWeight.w500),
-                    ),
-                  ),
-                ),
+                      child: Text(
+                        'Buat',
+                        style: GoogleFonts.poppins(
+                          color: Colors.black,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    )),
               ],
             ),
           ),
