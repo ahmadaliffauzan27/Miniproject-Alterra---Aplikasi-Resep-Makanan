@@ -182,29 +182,47 @@ class _TambahResepState extends State<TambahResep> {
                   onTap: () async {
                     getFile();
                   },
-                  child: Container(
-                    width: 110,
-                    height: 110,
-                    margin: const EdgeInsets.only(top: 26),
-                    padding: const EdgeInsets.all(10),
-                    decoration: const BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage('assets/photo_border.png'))),
-                    child: (_image != null)
-                        ? Container(
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                image: DecorationImage(
-                                    image: FileImage(_image!),
-                                    fit: BoxFit.cover)),
-                          )
-                        : Container(
-                            decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                image: DecorationImage(
-                                    image: AssetImage('assets/photo.png'),
-                                    fit: BoxFit.cover)),
-                          ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Container(
+                      width: double.infinity,
+                      height: 200,
+                      margin:
+                          const EdgeInsets.only(top: 26, left: 10, right: 10),
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(border: Border.all(width: 1)),
+                      // decoration: const BoxDecoration(
+                      //     image: DecorationImage(
+                      //         image: AssetImage('assets/photo_border.png'))),
+                      child: (_image != null)
+                          ? Container(
+                              decoration: BoxDecoration(
+                                  // shape: BoxShape.circle,
+                                  image: DecorationImage(
+                                      image: FileImage(_image!),
+                                      fit: BoxFit.cover)),
+                            )
+                          : Container(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const Icon(Icons.add),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text(
+                                    'Pilih Gambar',
+                                    style: blackFontStyle3,
+                                  )
+                                ],
+                              ),
+                              // decoration: const BoxDecoration(
+                              //     // shape: BoxShape.circle,
+                              //     image: DecorationImage(
+                              //         image: AssetImage('assets/photo.png'),
+                              //         fit: BoxFit.cover)),
+                            ),
+                    ),
                   ),
                 ),
                 Container(
