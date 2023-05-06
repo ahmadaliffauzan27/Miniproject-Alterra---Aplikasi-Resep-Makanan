@@ -56,4 +56,9 @@ class RecipeManager extends ChangeNotifier {
     favoriteManager.removeFavorite(resep);
     notifyListeners();
   }
+
+  Future<void> searchData(String keyword) async {
+    _reseps = await _dbHelper.searchData(keyword);
+    notifyListeners();
+  }
 }

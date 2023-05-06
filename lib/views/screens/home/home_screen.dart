@@ -69,6 +69,7 @@ class _ResepHomeState extends State<ResepHome> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<RecipeManager>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         title: Column(
@@ -79,76 +80,103 @@ class _ResepHomeState extends State<ResepHome> {
                   left: 16, top: 50, right: 20, bottom: 10),
               child: Align(
                 alignment: Alignment.topLeft,
-                child: Row(
+                child: Column(
                   children: [
-                    SizedBox(
-                      width: 50,
-                      height: 50,
-                      child: ClipOval(
-                        child: Image.asset(
-                          'assets/photo_profile.png',
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    Row(
                       children: [
-                        Text(
-                          'Selamat datang',
-                          style: subtitleFont.copyWith(fontSize: 11),
+                        SizedBox(
+                          width: 50,
+                          height: 50,
+                          child: ClipOval(
+                            child: Image.asset(
+                              'assets/photo_profile.png',
+                              fit: BoxFit.cover,
+                            ),
+                          ),
                         ),
-                        Text(
-                          'Chef $username',
-                          style: subtitleFont.copyWith(fontSize: 12),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Selamat datang',
+                              style: subtitleFont.copyWith(fontSize: 11),
+                            ),
+                            Text(
+                              'Chef $username',
+                              style: subtitleFont.copyWith(fontSize: 12),
+                            ),
+                          ],
+                        ),
+                        const Spacer(),
+                        InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const FavouriteRecipes(),
+                              ),
+                            );
+                          },
+                          child: Stack(
+                            children: [
+                              const Icon(
+                                Icons.bookmark_added,
+                                color: Colors.white,
+                              ),
+                              Positioned(
+                                top: -1.5,
+                                right: 1,
+                                child: Container(
+                                  padding: const EdgeInsets.all(2),
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Colors.white,
+                                  ),
+                                  child: Consumer<RecipeManager>(
+                                    builder: (context, provider, child) {
+                                      return Text(
+                                        provider.favoriteManager.favoriteRecipes
+                                            .length
+                                            .toString(),
+                                        style: const TextStyle(
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.red,
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
-                    const Spacer(),
-                    InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const FavouriteRecipes(),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Card(
+                      shadowColor: mainColor,
+                      elevation: 2,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5)),
+                      child: TextFormField(
+                        onChanged: (value) {
+                          provider.searchData(value);
+                        },
+                        decoration: InputDecoration(
+                          contentPadding: const EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 10),
+                          suffixIcon: const Icon(Icons.search),
+                          hintText: 'Search...',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5),
                           ),
-                        );
-                      },
-                      child: Stack(
-                        children: [
-                          const Icon(
-                            Icons.bookmark_added,
-                            color: Colors.white,
-                          ),
-                          Positioned(
-                            top: -1.5,
-                            right: 1,
-                            child: Container(
-                              padding: const EdgeInsets.all(2),
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Colors.white,
-                              ),
-                              child: Consumer<RecipeManager>(
-                                builder: (context, provider, child) {
-                                  return Text(
-                                    provider
-                                        .favoriteManager.favoriteRecipes.length
-                                        .toString(),
-                                    style: const TextStyle(
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.red,
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
                     ),
                   ],
@@ -160,7 +188,7 @@ class _ResepHomeState extends State<ResepHome> {
             ),
           ],
         ),
-        toolbarHeight: 80,
+        toolbarHeight: 150,
         backgroundColor: mainColor,
       ),
       backgroundColor: Colors.white,

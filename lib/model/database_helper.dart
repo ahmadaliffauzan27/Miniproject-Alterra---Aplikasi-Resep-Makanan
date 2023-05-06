@@ -73,4 +73,13 @@ class DatabaseHelper {
       whereArgs: [id],
     );
   }
+
+  Future<List<Resep>> searchData(String keyword) async {
+    final db = await database;
+    var res = await db
+        .query(_tableName, where: "name LIKE ?", whereArgs: ['%$keyword%']);
+    List<Resep> list =
+        res.isNotEmpty ? res.map((c) => Resep.fromMap(c)).toList() : [];
+    return list;
+  }
 }

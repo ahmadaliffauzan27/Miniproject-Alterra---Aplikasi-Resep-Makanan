@@ -25,4 +25,6 @@ class ResepApi {
       imageUrl: json['strMealThumb'] ?? '',
     );
   }
+
+  static fromMap(Map<String, Object?> c) {}
 }
