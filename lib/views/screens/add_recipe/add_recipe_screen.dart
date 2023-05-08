@@ -113,30 +113,6 @@ class _TambahResepState extends State<TambahResep> {
     }
   }
 
-  String? validateName(String? name) {
-    if (name == null || name.isEmpty) {
-      return "Nama resep tidak boleh kosong";
-    } else {
-      return null;
-    }
-  }
-
-  String? validateIngredients(String? ingredients) {
-    if (ingredients == null || ingredients.isEmpty) {
-      return "Bahan-bahan tidak boleh kosong";
-    } else {
-      return null;
-    }
-  }
-
-  String? validateStep(String? step) {
-    if (step == null || step.isEmpty) {
-      return "Cara membuat tidak boleh kosong";
-    } else {
-      return null;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     var pictureFile;
