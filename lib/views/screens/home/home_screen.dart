@@ -12,6 +12,7 @@ import 'package:resep_makanan/utils/const/theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../model/resep_model.dart';
+import '../../../utils/const/animation.dart';
 import '../../../view_model/recipe_provider.dart';
 import '../add_recipe/add_recipe_screen.dart';
 import '../detail_recipe/detail_recipe_screen.dart';
@@ -181,7 +182,7 @@ class _ResepHomeState extends State<ResepHome> {
                           decoration: InputDecoration(
                             contentPadding: const EdgeInsets.symmetric(
                                 vertical: 10, horizontal: 10),
-                            suffixIcon: const Icon(Icons.search),
+                            suffixIcon: AnimatedSearchIcon(),
                             hintText: 'Cari ResepKu...',
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5),
