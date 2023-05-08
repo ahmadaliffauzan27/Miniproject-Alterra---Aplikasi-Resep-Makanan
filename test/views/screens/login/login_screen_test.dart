@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:resep_makanan/views/screens/login/login_screen.dart';
-import 'package:resep_makanan/views/screens/register/register_screen.dart';
 
 void main() {
   group('LoginPage Widget Test', () {
@@ -27,7 +26,5 @@ void main() {
       await tester.pumpWidget(const MaterialApp(home: LoginPage()));
       expect(find.text('Masuk'), findsOneWidget);
     });
-
-    // Test navigation to RegisterPage
   });
 }
