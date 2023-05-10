@@ -475,8 +475,19 @@ class _ResepHomeState extends State<ResepHome> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(
-              builder: (context) => const TambahResep(),
+            PageRouteBuilder(
+              pageBuilder: (_, __, ___) => TambahResep(),
+              transitionsBuilder:
+                  (context, animation, secondaryAnimation, child) {
+                return ScaleTransition(
+                  scale: Tween<double>(
+                    begin: 0.0,
+                    end: 1.0,
+                  ).animate(animation),
+                  child: child,
+                );
+              },
+              transitionDuration: const Duration(milliseconds: 500),
             ),
           );
         },
